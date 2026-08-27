@@ -19,7 +19,12 @@ const sizes: Record<Size, string> = {
   lg: "min-h-13 px-7 py-4",
 };
 
-type CommonProps = { variant?: Variant; size?: Size; children: ReactNode; className?: string };
+type CommonProps = {
+  variant?: Variant | undefined;
+  size?: Size | undefined;
+  children: ReactNode;
+  className?: string | undefined;
+};
 
 export function Button({
   variant = "primary",
