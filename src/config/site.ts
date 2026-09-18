@@ -3,18 +3,18 @@
  * PENDIENTE = placeholder data waiting for confirmation from the client.
  */
 export const siteConfig = {
-  companyName: "Bunker Global Security Systems",
-  shortName: "BUNKER GLOBAL",
+  companyName: "BÚNKER SERVICIOS INTEGRALES DE TECNOLOGÍA",
+  shortName: "BÚNKER",
   domain: "PENDIENTE",
-  // PENDIENTE: confirmar datos reales de contacto
-  phone: "+52 (55) 1234 5678",
-  phoneHref: "tel:+525512345678",
-  whatsapp: "5215587654321", // formato internacional sin signos
-  whatsappDisplay: "+52 (55) 8765 4321",
-  email: "contacto@bunkerglobal.com.mx",
+  // PENDIENTE: confirmar datos reales de contacto antes de habilitar enlaces.
+  phone: "",
+  phoneHref: "",
+  whatsapp: "",
+  whatsappDisplay: "",
+  email: "",
   address: {
-    line1: "Av. Reforma 222, Piso 14",
-    line2: "Col. Juárez, CDMX, 06600",
+    line1: "",
+    line2: "",
   },
   socialLinks: {
     facebook: "PENDIENTE",
@@ -22,11 +22,27 @@ export const siteConfig = {
     linkedin: "PENDIENTE",
   },
   whatsappMessage:
-    "Hola Bunker Global, me gustaría solicitar información sobre sus soluciones de seguridad.",
+    "Hola BÚNKER, me gustaría solicitar información sobre sus soluciones tecnológicas.",
 } as const;
 
+export const hasWhatsapp = Boolean(siteConfig.whatsapp);
+export const hasEmail = Boolean(siteConfig.email);
+export const hasPhone = Boolean(siteConfig.phone && siteConfig.phoneHref);
+export const hasAddress = Boolean(siteConfig.address.line1 || siteConfig.address.line2);
+
 export const whatsappUrl = (message: string = siteConfig.whatsappMessage) =>
-  `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(message)}`;
+  hasWhatsapp ? `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(message)}` : null;
 
 export const mailtoUrl = (subject = "Solicitud de cotización") =>
-  `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}`;
+  hasEmail ? `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}` : null;
+
+/** Se renderiza únicamente cuando exista un dominio real confirmado. */
+export const organizationStructuredData =
+  siteConfig.domain !== "PENDIENTE"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: siteConfig.companyName,
+        url: siteConfig.domain,
+      }
+    : null;

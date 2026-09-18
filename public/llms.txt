@@ -1,0 +1,29 @@
+# BÚNKER SERVICIOS INTEGRALES DE TECNOLOGÍA
+
+> Diseño, instalación y monitoreo de soluciones de seguridad electrónica para hogares, empresas e instalaciones en México.
+
+Este archivo describe la estructura pública del sitio. El dominio definitivo y los datos de contacto están pendientes de confirmación; no deben inferirse ni inventarse.
+
+## Páginas principales
+
+- [Inicio](/): presentación de la empresa, servicios, sectores, proceso, proyectos de muestra, preguntas frecuentes y contacto.
+- [Aviso de privacidad](/aviso-de-privacidad): tratamiento previsto de datos personales y estado actual del formulario.
+- [Política de cookies](/politica-de-cookies): categorías de almacenamiento y mecanismo de consentimiento.
+- [Términos de servicio](/terminos-de-servicio): condiciones generales de uso del sitio.
+
+## Servicios descritos
+
+- Videovigilancia CCTV e IP.
+- Centro de monitoreo.
+- Control de acceso.
+- Sistemas de alarma.
+- Analítica inteligente.
+- Instalación y mantenimiento.
+
+## Uso y atribución
+
+- Las marcas mencionadas describen tecnologías disponibles; no implican partnership, certificación ni representación oficial.
+- Los proyectos y fotografías identificados como muestra no acreditan clientes o instalaciones reales.
+- Para exclusiones de rastreo consulte `/robots.txt`.
+
+Actualizado: 2026-09-01

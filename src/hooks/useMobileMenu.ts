@@ -11,11 +11,16 @@ export function useMobileMenu() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
+    const onResize = () => {
+      if (window.innerWidth >= 1280) close();
+    };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
     };
   }, [open, close]);
 

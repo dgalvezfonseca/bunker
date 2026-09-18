@@ -16,6 +16,10 @@ dist-ssr
 .nitro
 *.local
 
+# Local Directus data and secrets
+/directus/.env
+/directus/uploads/
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

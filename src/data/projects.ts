@@ -1,13 +1,7 @@
-import { images } from "./images";
+import type { CaseStudy } from "./cms";
+import { media } from "./images";
 
-export type Project = {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  technologies: string[];
-};
+export type Project = CaseStudy;
 
 /** PLACEHOLDER: proyectos de ejemplo. Reemplazar por casos reales e imágenes propias. */
 export const projects: Project[] = [
@@ -17,7 +11,7 @@ export const projects: Project[] = [
     category: "Corporativo",
     description:
       "Videovigilancia IP en áreas comunes y estacionamientos, con administración centralizada.",
-    image: images.project1,
+    cover: media.project1,
     technologies: ["CCTV IP", "Control de acceso", "Red dedicada"],
   },
   {
@@ -25,7 +19,7 @@ export const projects: Project[] = [
     title: "Nave industrial",
     category: "Industrial",
     description: "Cobertura perimetral y de andenes con grabación continua y respaldo energético.",
-    image: images.project2,
+    cover: media.project2,
     technologies: ["Cámaras perimetrales", "Analítica", "UPS"],
   },
   {
@@ -33,7 +27,16 @@ export const projects: Project[] = [
     title: "Accesos residenciales",
     category: "Residencial",
     description: "Control vehicular y peatonal con video verificación en caseta.",
-    image: images.project3,
+    cover: media.project3,
     technologies: ["Control vehicular", "Intercomunicación", "CCTV"],
+  },
+  {
+    id: "acceso-comercial",
+    title: "Acceso a edificio comercial",
+    category: "Comercial",
+    description:
+      "Control de ingreso peatonal con registro y validación en el punto de acceso principal.",
+    cover: media.accessControl,
+    technologies: ["Control de acceso", "Credenciales", "Registro de ingreso"],
   },
 ];

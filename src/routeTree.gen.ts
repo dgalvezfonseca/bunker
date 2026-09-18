@@ -10,33 +10,203 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AvisoDePrivacidadRouteImport } from './routes/aviso-de-privacidad'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as CasosDeExitoRouteImport } from './routes/casos-de-exito'
+import { Route as ClientesRouteImport } from './routes/clientes'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as NosotrosRouteImport } from './routes/nosotros'
+import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
+import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as TecnologiaRouteImport } from './routes/tecnologia'
+import { Route as TerminosDeServicioRouteImport } from './routes/terminos-de-servicio'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as CasosDeExitoSlugRouteImport } from './routes/casos-de-exito.$slug'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AvisoDePrivacidadRoute = AvisoDePrivacidadRouteImport.update({
+  id: '/aviso-de-privacidad',
+  path: '/aviso-de-privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasosDeExitoRoute = CasosDeExitoRouteImport.update({
+  id: '/casos-de-exito',
+  path: '/casos-de-exito',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientesRoute = ClientesRouteImport.update({
+  id: '/clientes',
+  path: '/clientes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NosotrosRoute = NosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeCookiesRoute = PoliticaDeCookiesRouteImport.update({
+  id: '/politica-de-cookies',
+  path: '/politica-de-cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TecnologiaRoute = TecnologiaRouteImport.update({
+  id: '/tecnologia',
+  path: '/tecnologia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TerminosDeServicioRoute = TerminosDeServicioRouteImport.update({
+  id: '/terminos-de-servicio',
+  path: '/terminos-de-servicio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const CasosDeExitoSlugRoute = CasosDeExitoSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CasosDeExitoRoute,
+} as any)
+const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServiciosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aviso-de-privacidad': typeof AvisoDePrivacidadRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/casos-de-exito': typeof CasosDeExitoRouteWithChildren
+  '/clientes': typeof ClientesRoute
+  '/contacto': typeof ContactoRoute
+  '/nosotros': typeof NosotrosRoute
+  '/politica-de-cookies': typeof PoliticaDeCookiesRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/tecnologia': typeof TecnologiaRoute
+  '/terminos-de-servicio': typeof TerminosDeServicioRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aviso-de-privacidad': typeof AvisoDePrivacidadRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/casos-de-exito': typeof CasosDeExitoRouteWithChildren
+  '/clientes': typeof ClientesRoute
+  '/contacto': typeof ContactoRoute
+  '/nosotros': typeof NosotrosRoute
+  '/politica-de-cookies': typeof PoliticaDeCookiesRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/tecnologia': typeof TecnologiaRoute
+  '/terminos-de-servicio': typeof TerminosDeServicioRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aviso-de-privacidad': typeof AvisoDePrivacidadRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/casos-de-exito': typeof CasosDeExitoRouteWithChildren
+  '/clientes': typeof ClientesRoute
+  '/contacto': typeof ContactoRoute
+  '/nosotros': typeof NosotrosRoute
+  '/politica-de-cookies': typeof PoliticaDeCookiesRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/tecnologia': typeof TecnologiaRoute
+  '/terminos-de-servicio': typeof TerminosDeServicioRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/aviso-de-privacidad'
+    | '/blog'
+    | '/casos-de-exito'
+    | '/clientes'
+    | '/contacto'
+    | '/nosotros'
+    | '/politica-de-cookies'
+    | '/servicios'
+    | '/tecnologia'
+    | '/terminos-de-servicio'
+    | '/blog/$slug'
+    | '/casos-de-exito/$slug'
+    | '/servicios/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/aviso-de-privacidad'
+    | '/blog'
+    | '/casos-de-exito'
+    | '/clientes'
+    | '/contacto'
+    | '/nosotros'
+    | '/politica-de-cookies'
+    | '/servicios'
+    | '/tecnologia'
+    | '/terminos-de-servicio'
+    | '/blog/$slug'
+    | '/casos-de-exito/$slug'
+    | '/servicios/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/aviso-de-privacidad'
+    | '/blog'
+    | '/casos-de-exito'
+    | '/clientes'
+    | '/contacto'
+    | '/nosotros'
+    | '/politica-de-cookies'
+    | '/servicios'
+    | '/tecnologia'
+    | '/terminos-de-servicio'
+    | '/blog/$slug'
+    | '/casos-de-exito/$slug'
+    | '/servicios/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AvisoDePrivacidadRoute: typeof AvisoDePrivacidadRoute
+  BlogRoute: typeof BlogRouteWithChildren
+  CasosDeExitoRoute: typeof CasosDeExitoRouteWithChildren
+  ClientesRoute: typeof ClientesRoute
+  ContactoRoute: typeof ContactoRoute
+  NosotrosRoute: typeof NosotrosRoute
+  PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
+  ServiciosRoute: typeof ServiciosRouteWithChildren
+  TecnologiaRoute: typeof TecnologiaRoute
+  TerminosDeServicioRoute: typeof TerminosDeServicioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +218,146 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aviso-de-privacidad': {
+      id: '/aviso-de-privacidad'
+      path: '/aviso-de-privacidad'
+      fullPath: '/aviso-de-privacidad'
+      preLoaderRoute: typeof AvisoDePrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/casos-de-exito': {
+      id: '/casos-de-exito'
+      path: '/casos-de-exito'
+      fullPath: '/casos-de-exito'
+      preLoaderRoute: typeof CasosDeExitoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clientes': {
+      id: '/clientes'
+      path: '/clientes'
+      fullPath: '/clientes'
+      preLoaderRoute: typeof ClientesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nosotros': {
+      id: '/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-cookies': {
+      id: '/politica-de-cookies'
+      path: '/politica-de-cookies'
+      fullPath: '/politica-de-cookies'
+      preLoaderRoute: typeof PoliticaDeCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tecnologia': {
+      id: '/tecnologia'
+      path: '/tecnologia'
+      fullPath: '/tecnologia'
+      preLoaderRoute: typeof TecnologiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terminos-de-servicio': {
+      id: '/terminos-de-servicio'
+      path: '/terminos-de-servicio'
+      fullPath: '/terminos-de-servicio'
+      preLoaderRoute: typeof TerminosDeServicioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/casos-de-exito/$slug': {
+      id: '/casos-de-exito/$slug'
+      path: '/$slug'
+      fullPath: '/casos-de-exito/$slug'
+      preLoaderRoute: typeof CasosDeExitoSlugRouteImport
+      parentRoute: typeof CasosDeExitoRoute
+    }
+    '/servicios/$slug': {
+      id: '/servicios/$slug'
+      path: '/$slug'
+      fullPath: '/servicios/$slug'
+      preLoaderRoute: typeof ServiciosSlugRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
   }
 }
 
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface CasosDeExitoRouteChildren {
+  CasosDeExitoSlugRoute: typeof CasosDeExitoSlugRoute
+}
+
+const CasosDeExitoRouteChildren: CasosDeExitoRouteChildren = {
+  CasosDeExitoSlugRoute: CasosDeExitoSlugRoute,
+}
+
+const CasosDeExitoRouteWithChildren = CasosDeExitoRoute._addFileChildren(
+  CasosDeExitoRouteChildren,
+)
+
+interface ServiciosRouteChildren {
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
+}
+
+const ServiciosRouteChildren: ServiciosRouteChildren = {
+  ServiciosSlugRoute: ServiciosSlugRoute,
+}
+
+const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
+  ServiciosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AvisoDePrivacidadRoute: AvisoDePrivacidadRoute,
+  BlogRoute: BlogRouteWithChildren,
+  CasosDeExitoRoute: CasosDeExitoRouteWithChildren,
+  ClientesRoute: ClientesRoute,
+  ContactoRoute: ContactoRoute,
+  NosotrosRoute: NosotrosRoute,
+  PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
+  ServiciosRoute: ServiciosRouteWithChildren,
+  TecnologiaRoute: TecnologiaRoute,
+  TerminosDeServicioRoute: TerminosDeServicioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,43 +1,71 @@
+import { Link } from "@tanstack/react-router";
+
 import { Container } from "@/components/common/Container";
-import { footerNav } from "@/data/navigation";
+import { BrandWordmark } from "@/components/common/BrandWordmark";
+import { Reveal } from "@/components/common/Reveal";
+import { footerNav, legalNav } from "@/data/navigation";
 import { siteConfig } from "@/config/site";
+import { pageContent } from "@/data/page-content";
 
 export function Footer() {
   return (
-    <footer className="bg-primary-dark pt-16 pb-8 text-primary-soft">
+    <footer className="border-t border-primary/30 bg-black-950 pt-16 pb-8 text-warm-gray-100">
       <Container>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col gap-4">
-            <span className="font-display text-xl font-extrabold tracking-tight text-surface-elevated">
-              {siteConfig.shortName}
-            </span>
-            <p className="text-sm leading-relaxed text-primary-soft/70">
-              Diseño, instalación y monitoreo de sistemas de seguridad para hogares, comercios,
-              corporativos e industria.
+          <Reveal from="left" className="flex flex-col gap-4">
+            <BrandWordmark full className="transition-opacity duration-[220ms] hover:opacity-85" />
+            <p className="text-sm leading-relaxed text-warm-gray-300">
+              {pageContent.footer.description}
             </p>
-          </div>
+          </Reveal>
 
-          {footerNav.map((group) => (
-            <nav key={group.title} aria-label={group.title} className="flex flex-col gap-3">
-              <span className="text-eyebrow text-surface-elevated/90">{group.title}</span>
-              {group.items.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-sm text-primary-soft/70 transition-colors hover:text-surface-elevated"
+          {footerNav.map((group, index) => (
+            <Reveal key={group.title} delay={70 + index * 55}>
+              <nav aria-label={group.title} className="flex flex-col gap-3">
+                <span className="text-eyebrow text-silver-100">{group.title}</span>
+                {group.items.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="footer-link w-fit text-sm text-warm-gray-300 transition-colors duration-[180ms] hover:text-silver-100"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </Reveal>
+          ))}
+
+          <Reveal delay={180} from="right">
+            <nav aria-label="Legal y privacidad" className="flex flex-col gap-3">
+              <span className="text-eyebrow text-silver-100">Legal y privacidad</span>
+              {legalNav.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="footer-link w-fit text-sm text-warm-gray-300 transition-colors duration-[180ms] hover:text-silver-100"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event("open-cookie-preferences"))}
+                className="footer-link w-fit text-left text-sm text-warm-gray-300 transition-colors duration-[180ms] hover:text-silver-100"
+              >
+                Preferencias de cookies
+              </button>
             </nav>
-          ))}
+          </Reveal>
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-surface-elevated/10 pt-8 md:flex-row">
-          <p className="text-center text-sm text-primary-soft/50 md:text-left">
-            © {new Date().getFullYear()} {siteConfig.companyName}. Todos los derechos reservados.
+          <p className="text-center text-sm text-warm-gray-500 md:text-left">
+            © 2026 {siteConfig.companyName}. Todos los derechos reservados.
           </p>
-          <p className="text-sm text-primary-soft/50">{siteConfig.email}</p>
+          {siteConfig.email ? (
+            <p className="text-sm text-warm-gray-500">{siteConfig.email}</p>
+          ) : null}
         </div>
       </Container>
     </footer>

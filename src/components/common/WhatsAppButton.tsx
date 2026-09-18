@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Icon } from "./Icon";
 import { ButtonLink } from "./Button";
-import { whatsappUrl } from "@/config/site";
+import { hasWhatsapp, whatsappUrl } from "@/config/site";
 
 /** Enlace de WhatsApp reutilizable (hero, CTA, etc.). */
 export function WhatsAppLink({
@@ -17,9 +17,14 @@ export function WhatsAppLink({
   size?: "md" | "lg";
   className?: string;
 }) {
+  if (!hasWhatsapp) return null;
+
+  const href = whatsappUrl(message);
+  if (!href) return null;
+
   return (
     <ButtonLink
-      href={whatsappUrl(message)}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       variant={variant}
@@ -34,9 +39,14 @@ export function WhatsAppLink({
 
 /** Botón flotante discreto. */
 export function WhatsAppFloating({ className }: { className?: string }) {
+  if (!hasWhatsapp) return null;
+
+  const href = whatsappUrl();
+  if (!href) return null;
+
   return (
     <a
-      href={whatsappUrl()}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"

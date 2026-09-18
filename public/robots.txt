@@ -1,14 +1,68 @@
+# ============================================================
+# robots.txt — BÚNKER SERVICIOS INTEGRALES DE TECNOLOGÍA
+# Actualizado: 2026-09-01
+# ============================================================
+
+# Reglas generales. robots.txt controla rastreo, no garantiza desindexación.
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /tools/
+Disallow: /search/
+Disallow: /*?*
+
+# Buscadores principales
 User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /tools/
+Disallow: /search/
+Disallow: /*?*
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin/
+Disallow: /tools/
+Disallow: /search/
+Disallow: /*?*
 
-User-agent: Twitterbot
+# Descubrimiento y consulta mediante asistentes
+User-agent: ChatGPT-User
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent: OAI-SearchBot
 Allow: /
 
-User-agent: *
+User-agent: PerplexityBot
 Allow: /
+
+# Exclusión de entrenamiento y recolección masiva
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Archivo histórico
+User-agent: ia_archiver
+Disallow: /
+
+# PENDIENTE_DOMINIO: npm run seo:generate agregará aquí la URL absoluta del sitemap.

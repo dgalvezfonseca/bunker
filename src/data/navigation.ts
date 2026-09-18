@@ -1,40 +1,62 @@
-export type NavItem = { label: string; href: string };
+export type NavItem = {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+};
 
 export const mainNav: NavItem[] = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Servicios", href: "#servicios" },
-  { label: "Centro de Monitoreo", href: "#monitoreo" },
-  { label: "Sectores", href: "#sectores" },
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Inicio", href: "/" },
+  { label: "Nosotros", href: "/nosotros" },
+  {
+    label: "Servicios",
+    href: "/servicios",
+    children: [
+      { label: "Vigilancia", href: "/servicios/vigilancia" },
+      { label: "Custodia en tránsito", href: "/servicios/custodia" },
+      { label: "GPS y Rastreo", href: "/servicios/gps-rastreo" },
+      { label: "Videovigilancia", href: "/servicios/videovigilancia" },
+      { label: "Dashcam con IA", href: "/servicios/dashcam-ia" },
+      { label: "Tecnología perimetral", href: "/servicios/tecnologia-perimetral" },
+    ],
+  },
+  {
+    label: "Tecnología",
+    href: "/tecnologia",
+    children: [
+      { label: "Marcas", href: "/tecnologia#marcas" },
+      { label: "GPS", href: "/servicios/gps-rastreo" },
+      { label: "Videovigilancia", href: "/servicios/videovigilancia" },
+      { label: "IA aplicada", href: "/servicios/dashcam-ia" },
+    ],
+  },
+  { label: "Casos de éxito", href: "/casos-de-exito" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 export const footerNav: { title: string; items: NavItem[] }[] = [
   {
     title: "Servicios",
     items: [
-      { label: "Videovigilancia", href: "#servicios" },
-      { label: "Centro de Monitoreo", href: "#monitoreo" },
-      { label: "Control de Acceso", href: "#servicios" },
-      { label: "Sistemas de Alarma", href: "#servicios" },
-      { label: "Infraestructura y Redes", href: "#servicios" },
+      { label: "Vigilancia", href: "/servicios/vigilancia" },
+      { label: "Custodia en tránsito", href: "/servicios/custodia" },
+      { label: "GPS y Rastreo", href: "/servicios/gps-rastreo" },
+      { label: "Videovigilancia", href: "/servicios/videovigilancia" },
     ],
   },
   {
     title: "Compañía",
     items: [
-      { label: "Nosotros", href: "#nosotros" },
-      { label: "Sectores", href: "#sectores" },
-      { label: "Proyectos", href: "#proyectos" },
-      { label: "Contacto", href: "#contacto" },
-    ],
-  },
-  {
-    title: "Legal",
-    items: [
-      { label: "Aviso de Privacidad", href: "#contacto" },
-      { label: "Términos y Condiciones", href: "#contacto" },
+      { label: "Nosotros", href: "/nosotros" },
+      { label: "Tecnología", href: "/tecnologia" },
+      { label: "Casos de éxito", href: "/casos-de-exito" },
+      { label: "Contacto", href: "/contacto" },
     ],
   },
 ];
+
+export const legalNav = [
+  { label: "Aviso de privacidad", to: "/aviso-de-privacidad" },
+  { label: "Política de cookies", to: "/politica-de-cookies" },
+  { label: "Términos de servicio", to: "/terminos-de-servicio" },
+] as const;

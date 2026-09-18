@@ -1,8 +1,10 @@
 /**
- * Imágenes del sitio. PLACEHOLDER: reemplazar por fotografías reales de Bunker.
+ * Imágenes del sitio. PLACEHOLDER: reemplazar por fotografías reales de BÚNKER.
  * Centralizadas aquí para poder sustituirlas sin tocar los componentes.
  */
-export const images = {
+import type { Media } from "./cms";
+
+const sources = {
   hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuARPT6NYWLfW0r1Wewldf_hn054a6c9wjIqWq8up0EoixgEHfaCLGohdHoLn2GXEa1gmNHPn_jLc3CD6ZdSVc6XwQx6j_vqE_G7Sn7KasNMFLO-5L7bupkX9M5CSIHkZkG7ALnEwoU_rKYC-iXXs8qCUSvjOOPvWG7R3JI4bRfVD4ZlPhWq2P2_eK5DIUa1xI0nQt7oyaQyO8IEEuTTFZ_Ps7exdS372oGH35BRCsSY6_xoRDKKySVNUg",
   aboutCorporate:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuDoq2aqNUdZdLFUFUBiUU9-y_1EPFCJigggKLZNbJR0hx4P00mliE3ion2YPQYljEQA0dpGISricjptFIbZQ0GiIJEKvc0VsJnVRsqojqWCNuIKlh1jqfuoL67eQAXWlrdawe4zvAI6xD9ozZrbFLdronpPEP4qeVaNgswyuirG_5RKgGc4eKfDHoRIivLRmKlbSAP-BcVSASrGQYhL8FvyyTsAnRix9oc3KeUqxi6diTvdqUL618XTEw",
@@ -29,3 +31,12 @@ export const images = {
   project3:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuDZMfqjuzeJK0MgnUXi9xZTVQna7ybJMSvwRKGEdP1dqeNwb8FVSoHJQUiPCWTAnFY3jiEKMlY0MxJEYkoXRLTuJPuSkMLLNnLGHeUIxCWJIwIr_r9v-qX5x1iM9aul0YfyEapmUyapDwgeNRLGHD4fWzPDSZnoq3avdrC_POZfSIC5CHB3-LYHaKqz7WOlL_qfwTkjaTvMhAOQhXN4md-9XWsEFwEUvGJ5kl9BvdGmicb83ase34Gw0w",
 } as const;
+
+export const media = Object.fromEntries(
+  Object.entries(sources).map(([id, src]) => [id, { id, src, alt: "Imagen de referencia" }]),
+) as Record<keyof typeof sources, Media>;
+
+/** Compatibilidad temporal para componentes que solo necesitan la URL. */
+export const images = Object.fromEntries(
+  Object.entries(media).map(([id, asset]) => [id, asset.src]),
+) as Record<keyof typeof sources, string>;

@@ -3,29 +3,29 @@ export type Differentiator = { icon: string; title: string; description: string 
 export const differentiators: Differentiator[] = [
   {
     icon: "engineering",
-    title: "Instalaciones ordenadas",
-    description: "Cableado oculto, canalizaciones adecuadas y equipos montados con precisión.",
+    title: "Levantamiento",
+    description: "Revisamos accesos, recorridos, áreas críticas y condiciones del inmueble.",
   },
   {
     icon: "shield_locked",
-    title: "Equipo de grado profesional",
-    description: "Trabajamos con marcas reconocidas por su durabilidad y soporte.",
+    title: "Cobertura",
+    description: "Definimos ubicación de cámaras y puntos de control según lo que debe observarse.",
   },
   {
     icon: "quick_reference_all",
-    title: "Documentación completa",
-    description: "Entregamos planos, memoria técnica y credenciales administrativas al cierre.",
+    title: "Infraestructura",
+    description: "Consideramos conectividad, almacenamiento y respaldo de energía desde el diseño.",
   },
   {
     icon: "support_agent",
-    title: "Soporte posterior",
-    description: "Tiempos de respuesta definidos y equipo técnico para incidencias críticas.",
+    title: "Puesta en marcha",
+    description: "Instalamos, configuramos y probamos el sistema antes de cerrar el trabajo.",
   },
 ];
 
 export const heroHighlights = [
-  { icon: "verified_user", label: "Monitoreo 24/7" },
-  { icon: "build", label: "Instalación profesional" },
-  { icon: "support_agent", label: "Soporte especializado" },
-  { icon: "settings_suggest", label: "Soluciones a medida" },
+  { icon: "public", label: "Cobertura nacional" },
+  { icon: "location_searching", label: "Rastreo GPS" },
+  { icon: "shield", label: "Vigilancia" },
+  { icon: "local_shipping", label: "Custodia en tránsito" },
 ];

@@ -4,26 +4,26 @@ export const faqs: FaqItem[] = [
   {
     question: "¿Tienen cobertura a nivel nacional?",
     answer:
-      "Desarrollamos e implementamos proyectos en la República Mexicana. Confirmamos alcance y tiempos según la ubicación del sitio.",
+      "La cobertura geográfica se confirma para cada solicitud según la ubicación, el alcance técnico y la disponibilidad de instalación.",
   },
   {
     question: "¿Puedo ver mis cámaras desde mi celular?",
     answer:
-      "Sí. Los sistemas de videovigilancia y alarma se integran a aplicaciones móviles para monitoreo remoto en tiempo real.",
+      "Cuando los equipos y la conectividad lo permiten, el sistema puede configurarse para consulta remota desde una aplicación móvil.",
   },
   {
     question: "¿Ofrecen pólizas de mantenimiento?",
     answer:
-      "Contamos con planes de mantenimiento preventivo y correctivo para mantener la continuidad operativa del sistema.",
+      "El mantenimiento preventivo o correctivo se define dentro de la propuesta según los equipos y necesidades del sitio.",
   },
   {
     question: "¿Cuánto tiempo guardan las grabaciones?",
     answer:
-      "El almacenamiento se dimensiona según su requerimiento: desde 15 días hasta más de un año, en respaldo local o en nube.",
+      "La retención se calcula con base en número de cámaras, resolución, tipo de grabación y capacidad de almacenamiento requerida.",
   },
   {
     question: "¿Qué pasa si se va la luz?",
     answer:
-      "Diseñamos los sistemas con respaldo de energía (UPS) para mantener grabación y transmisión de alertas durante cortes eléctricos.",
+      "La propuesta puede contemplar respaldo de energía (UPS) cuando la continuidad durante cortes eléctricos sea un requisito del proyecto.",
   },
 ];
