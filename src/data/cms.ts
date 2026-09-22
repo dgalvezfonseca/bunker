@@ -6,6 +6,7 @@ export type Media = {
   id: string;
   src: string;
   alt: string;
+  objectPosition?: string;
 };
 
 export type Brand = { id: string; name: string; logo?: Media };
@@ -34,4 +35,17 @@ export type BlogPost = {
   publishedAt?: string;
   cover?: Media;
   category?: string;
+  published?: boolean;
+  seoTitle?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  sections?: BlogSection[];
+  cta?: { label: string; href: string };
+  internalLinks?: { label: string; href: string }[];
+};
+
+export type BlogSection = {
+  heading?: string;
+  paragraphs?: string[];
+  items?: string[];
 };

@@ -4,17 +4,18 @@ export const differentiators: Differentiator[] = [
   {
     icon: "engineering",
     title: "Levantamiento",
-    description: "Revisamos accesos, recorridos, áreas críticas y condiciones del inmueble.",
+    description: "Revisamos el sitio, los recorridos y los puntos que requieren atención.",
   },
   {
     icon: "shield_locked",
     title: "Cobertura",
-    description: "Definimos ubicación de cámaras y puntos de control según lo que debe observarse.",
+    description: "Definimos la cobertura de acuerdo con lo que necesita observarse y seguirse.",
   },
   {
     icon: "quick_reference_all",
     title: "Infraestructura",
-    description: "Consideramos conectividad, almacenamiento y respaldo de energía desde el diseño.",
+    description:
+      "Consideramos conectividad, almacenamiento y condiciones de instalación desde el diseño.",
   },
   {
     icon: "support_agent",

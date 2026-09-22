@@ -17,20 +17,13 @@ export const mainNav: NavItem[] = [
       { label: "Videovigilancia", href: "/servicios/videovigilancia" },
       { label: "Dashcam con IA", href: "/servicios/dashcam-ia" },
       { label: "Tecnología perimetral", href: "/servicios/tecnologia-perimetral" },
-    ],
-  },
-  {
-    label: "Tecnología",
-    href: "/tecnologia",
-    children: [
-      { label: "Marcas", href: "/tecnologia#marcas" },
-      { label: "GPS", href: "/servicios/gps-rastreo" },
-      { label: "Videovigilancia", href: "/servicios/videovigilancia" },
-      { label: "IA aplicada", href: "/servicios/dashcam-ia" },
+      { label: "Monitoreo", href: "/servicios/monitoreo" },
+      { label: "Instalación y soporte", href: "/servicios/instalacion-soporte" },
     ],
   },
   { label: "Casos de éxito", href: "/casos-de-exito" },
   { label: "Blog", href: "/blog" },
+  { label: "Clientes", href: "/clientes" },
   { label: "Contacto", href: "/contacto" },
 ];
 
@@ -42,6 +35,8 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: "Custodia en tránsito", href: "/servicios/custodia" },
       { label: "GPS y Rastreo", href: "/servicios/gps-rastreo" },
       { label: "Videovigilancia", href: "/servicios/videovigilancia" },
+      { label: "Monitoreo", href: "/servicios/monitoreo" },
+      { label: "Instalación y soporte", href: "/servicios/instalacion-soporte" },
     ],
   },
   {

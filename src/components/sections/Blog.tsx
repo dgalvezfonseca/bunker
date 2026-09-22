@@ -1,6 +1,6 @@
 import { Container } from "@/components/common/Container";
 import { SectionHeading } from "@/components/common/SectionHeading";
-import { blogPosts } from "@/data/blog";
+import { posts } from "@/data/posts";
 import { pageContent } from "@/data/page-content";
 
 export function Blog() {
@@ -9,15 +9,16 @@ export function Blog() {
     <section id="recursos" className="section-y section-rule bg-surface-elevated">
       <Container>
         <SectionHeading eyebrow={content.eyebrow} title={content.title} className="max-w-2xl" />
-        {blogPosts.length ? (
+        {posts.length ? (
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {blogPosts.map((post) => (
+            {posts.slice(0, 3).map((post) => (
               <article key={post.id} className="border-t-2 border-primary pt-5">
                 {post.cover ? (
                   <img
                     src={post.cover.src}
                     alt={post.cover.alt}
                     className="mb-5 h-48 w-full object-cover"
+                    style={{ objectPosition: post.cover.objectPosition }}
                   />
                 ) : null}
                 {post.category ? (

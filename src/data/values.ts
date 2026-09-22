@@ -1,22 +1,17 @@
 export const values = [
   {
-    id: "precision",
-    title: "Reacción y Precisión",
-    description: "Responder en tiempo récord con protocolos exactos.",
+    id: "discretion",
+    title: "Discreción",
+    description: "Manejamos la información operativa con confidencialidad.",
   },
   {
-    id: "integrity",
-    title: "Integridad y Confidencialidad",
-    description: "Manejar con total discreción la información sensible de los clientes.",
+    id: "responsibility",
+    title: "Responsabilidad",
+    description: "Asumimos nuestro rol en los procesos del cliente con seriedad.",
   },
   {
-    id: "innovation",
-    title: "Innovación Continua",
-    description: "Adoptar IA, videovigilancia avanzada y rastreo GPS.",
-  },
-  {
-    id: "commitment",
-    title: "Compromiso Implacable",
-    description: "Mantener la atención y el enfoque activo 24/7.",
+    id: "clarity",
+    title: "Claridad",
+    description: "Reportamos datos e incidentes enfocándonos en la evidencia disponible.",
   },
 ] as const;

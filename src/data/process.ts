@@ -3,32 +3,33 @@ export type ProcessStep = { step: string; title: string; description: string };
 export const processSteps: ProcessStep[] = [
   {
     step: "01",
-    title: "Evaluación",
-    description: "Revisamos el sitio, los accesos y los puntos que deben cubrirse.",
+    title: "Detectamos",
+    description:
+      "Identificamos eventos, alertas y condiciones de riesgo mediante tecnología y monitoreo.",
   },
   {
     step: "02",
-    title: "Diseño",
-    description: "Definimos cobertura, equipos, conectividad y almacenamiento.",
+    title: "Verificamos",
+    description: "Confirmamos la información disponible antes de escalar una incidencia.",
   },
   {
     step: "03",
-    title: "Instalación",
-    description: "Montamos equipos y tendemos la infraestructura acordada.",
+    title: "Monitoreamos",
+    description: "Damos seguimiento continuo a unidades, instalaciones y eventos.",
   },
   {
     step: "04",
-    title: "Pruebas",
-    description: "Configuramos funciones y comprobamos cada punto del sistema.",
+    title: "Coordinamos",
+    description: "Activamos los contactos y protocolos definidos para cada operación.",
   },
   {
     step: "05",
-    title: "Monitoreo",
-    description: "Cuando aplica, conectamos alertas y acordamos responsables.",
+    title: "Respondemos",
+    description: "Actuamos con base en la información disponible y el procedimiento establecido.",
   },
   {
     step: "06",
-    title: "Soporte",
-    description: "Definimos mantenimiento y atención técnica según el proyecto.",
+    title: "Documentamos",
+    description: "Mantenemos trazabilidad de eventos y evidencia cuando corresponde.",
   },
 ];

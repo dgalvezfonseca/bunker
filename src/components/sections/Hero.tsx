@@ -1,6 +1,5 @@
 import { Container } from "@/components/common/Container";
 import { ButtonLink } from "@/components/common/Button";
-import { WhatsAppLink } from "@/components/common/WhatsAppButton";
 import { heroHighlights } from "@/data/differentiators";
 import { images } from "@/data/images";
 import { pageContent } from "@/data/page-content";
@@ -20,7 +19,7 @@ export function Hero() {
               <span aria-hidden="true" className="h-px flex-1 bg-primary/30" />
             </div>
             <h1
-              className="hero-enter mt-6 text-display max-w-4xl text-primary-dark lg:text-[clamp(3.75rem,4.2vw,5rem)]"
+              className="hero-enter mt-6 max-w-4xl text-display text-primary-dark lg:text-[clamp(3.25rem,4vw,4.5rem)]"
               style={{ animationDelay: "110ms" }}
             >
               {content.title.map((line) => (
@@ -41,9 +40,16 @@ export function Hero() {
               style={{ animationDelay: "270ms" }}
             >
               <ButtonLink href="#contacto" size="lg" className="max-[430px]:w-full">
-                Solicitar cotización
+                Evaluar mi operación
               </ButtonLink>
-              <WhatsAppLink variant="outline" />
+              <ButtonLink
+                href="/servicios"
+                variant="outline"
+                size="lg"
+                className="max-[430px]:w-full"
+              >
+                Conocer los servicios
+              </ButtonLink>
             </div>
 
             <ul
@@ -69,7 +75,7 @@ export function Hero() {
             />
             <img
               src={images.hero}
-              alt="Técnico configurando una cámara de seguridad en una instalación corporativa"
+              alt="Camion siendo custodiado por unidades de seguridad privada"
               className="absolute inset-0 h-full w-full rounded-card object-cover object-[58%_center]"
               loading="eager"
               fetchPriority="high"

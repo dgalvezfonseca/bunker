@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 type Variant = "primary" | "outline" | "ghost" | "onDark";
@@ -50,7 +51,11 @@ export function ButtonLink({
   ...props
 }: CommonProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
-    <a className={cn(base, variants[variant], sizes[size], className)} {...props}>
+    <a
+      className={cn(base, variants[variant], sizes[size], className)}
+      {...props}
+      href={props.href ? withBasePath(props.href) : undefined}
+    >
       {children}
     </a>
   );

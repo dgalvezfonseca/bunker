@@ -15,19 +15,19 @@ export function Clients() {
             className="clients-marquee mt-12 border-y border-line"
             aria-label="Empresas que confían en BÚNKER"
           >
-            <ul className="clients-track flex w-max items-stretch">
+            <ul className="clients-track flex w-max items-center">
               {loopedClients.map((client, index) => (
                 <li
                   key={`${client.id}-${index}`}
                   aria-hidden={index >= clients.length}
-                  className="grid h-24 w-40 shrink-0 place-items-center border-r border-line px-6 py-5 sm:h-28 sm:w-52"
+                  className="flex h-24 w-[168px] shrink-0 items-center justify-center sm:h-28"
                 >
                   {client.logo ? (
                     <img
                       src={client.logo.src}
                       alt={client.logo.alt}
-                      className="h-11 max-w-full object-contain grayscale opacity-70 transition-[filter,opacity,transform] duration-300 hover:scale-[1.03] hover:grayscale-0 hover:opacity-100"
-                      loading="lazy"
+                      className="carousel-logo mx-8 h-10 w-auto max-w-[150px] shrink-0 object-contain grayscale opacity-60 transition-[filter,opacity,transform] duration-300 hover:scale-105 hover:grayscale-0 hover:opacity-100"
+                      loading={index < clients.length ? "eager" : "lazy"}
                     />
                   ) : (
                     <span className="text-center">

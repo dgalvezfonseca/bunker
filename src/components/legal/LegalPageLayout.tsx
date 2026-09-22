@@ -28,10 +28,6 @@ export function LegalPageLayout({
         </header>
 
         <Container className="py-12 sm:py-16">
-          <div className="mb-10 border-l-2 border-primary bg-primary-soft px-5 py-4 text-sm leading-relaxed text-primary-dark">
-            <strong>Borrador para revisión.</strong> Este documento no sustituye asesoría jurídica.
-            Los datos marcados como pendientes deben confirmarse antes de publicar el sitio.
-          </div>
           <article className="legal-content max-w-4xl">{children}</article>
         </Container>
       </main>

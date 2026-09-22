@@ -1,6 +1,26 @@
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  X,
+  type LucideIcon,
+} from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
-/** Material Symbols Outlined. La fuente se carga en __root.tsx */
+const icons: Record<string, LucideIcon> = {
+  arrow_outward: ArrowUpRight,
+  call: Phone,
+  chat: MessageCircle,
+  close: X,
+  expand_more: ChevronDown,
+  location_on: MapPin,
+  mail: Mail,
+};
+
 export function Icon({
   name,
   className,
@@ -10,13 +30,13 @@ export function Icon({
   className?: string;
   filled?: boolean;
 }) {
+  const IconComponent = icons[name] ?? MessageCircle;
+
   return (
-    <span
+    <IconComponent
       aria-hidden="true"
-      className={cn("icon select-none", className)}
-      style={filled ? { fontVariationSettings: "'FILL' 1" } : undefined}
-    >
-      {name}
-    </span>
+      className={cn("inline-block size-[1em] shrink-0", className)}
+      strokeWidth={filled ? 2.5 : 2}
+    />
   );
 }

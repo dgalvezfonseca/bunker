@@ -7,6 +7,7 @@ export function Institutional() {
     <>
       <section className="section-y bg-surface">
         <Container>
+          <p className="max-w-3xl text-lead text-ink-muted">{company.introduction}</p>
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="text-eyebrow text-primary">Misión</p>
@@ -20,6 +21,17 @@ export function Institutional() {
           <blockquote className="mt-16 border-l-4 border-primary pl-6 text-headline">
             {company.purpose}
           </blockquote>
+          <div className="mt-12 grid gap-6 border-t border-line pt-8 md:grid-cols-3">
+            <p className="text-sm leading-relaxed text-ink-muted">
+              <strong className="text-ink">Prevención y método.</strong> {company.philosophy}
+            </p>
+            <p className="text-sm leading-relaxed text-ink-muted">
+              <strong className="text-ink">Enfoque tecnológico.</strong> {company.technologyFocus}
+            </p>
+            <p className="text-sm leading-relaxed text-ink-muted">
+              <strong className="text-ink">Enfoque humano.</strong> {company.humanFocus}
+            </p>
+          </div>
         </Container>
       </section>
       <section className="section-y bg-surface-elevated">

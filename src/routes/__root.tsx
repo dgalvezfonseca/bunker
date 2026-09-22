@@ -14,6 +14,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/common/CookieConsent";
 import { TawkChat } from "../components/common/TawkChat";
 import { siteConfig } from "../config/site";
+import { withBasePath } from "../lib/base-path";
+
+const isGitHubPagesBuild = import.meta.env.MODE === "github-pages";
 
 function NotFoundComponent() {
   return (
@@ -84,27 +87,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Sistemas de videovigilancia, control de acceso, alarmas y monitoreo 24/7 para hogares, comercios, corporativos e industria.",
+          "Vigilancia, custodia en tránsito, rastreo GPS, videovigilancia y monitoreo para unidades, instalaciones y operaciones.",
       },
       { name: "author", content: siteConfig.companyName },
-      { name: "theme-color", content: "#030712" },
+      { name: "theme-color", content: "#2D2926" },
+      ...(isGitHubPagesBuild ? [{ name: "robots", content: "noindex, nofollow" }] : []),
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/logo.ico", type: "image/x-icon" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap",
-      },
+      { rel: "icon", href: withBasePath("/logo.ico"), type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,

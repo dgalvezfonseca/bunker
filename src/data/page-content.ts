@@ -1,53 +1,56 @@
 export const pageContent = {
   hero: {
-    eyebrow: "BÚNKER SERVICIOS INTEGRALES DE TECNOLOGÍA",
-    title: ["PROTECCIÓN,", "RASTREO Y", "RESPUESTA EN CAMPO."],
+    eyebrow: "Protección, logística y visibilidad operativa",
+    title: ["INTEGRAMOS PERSONAL,", "TECNOLOGÍA Y MONITOREO", "PARA TU OPERACIÓN EN MÉXICO."],
     description:
-      "Vigilancia, custodia, rastreo GPS y tecnología para proteger unidades, instalaciones y operaciones en todo México.",
+      "Analizamos las características de tu logística e instalaciones para diseñar estrategias de prevención, seguimiento y respuesta. Soluciones coordinadas según el nivel de protección requerido.",
     mediaCaption: "Instalación · Configuración · Monitoreo",
     mediaLabel: "Trabajo en sitio",
   },
   about: {
     eyebrow: "Nosotros",
-    title: "Ingeniería en seguridad, no solo cámaras",
+    title: "Entendemos la realidad operativa.",
     description:
-      "Antes de proponer equipos revisamos el sitio, la operación diaria y los puntos que realmente deben protegerse.",
-    body: "Con ese levantamiento definimos ubicación de cámaras, conectividad, almacenamiento, energía y el esquema de monitoreo. Después instalamos y dejamos cada elemento probado en condiciones reales de uso.",
+      "BÚNKER es una empresa mexicana enfocada en la prevención y gestión de riesgos logísticos y patrimoniales.",
+    body: "Analizamos el entorno para combinar el factor humano con infraestructura tecnológica, buscando una supervisión adaptada a instalaciones y unidades en tránsito.",
     variablesLabel: "Variables del proyecto",
     variables: "Cobertura · conectividad · almacenamiento · energía · monitoreo",
   },
   monitoring: {
     label: "Operación · Monitoreo",
     eyebrow: "Centro de monitoreo",
-    title: ["Vigilancia activa", "las 24 horas."],
+    title: ["Monitoreo que convierte", "datos en acción."],
     description:
-      "Damos seguimiento a las alertas, verificamos lo que ocurre y nos comunicamos con las personas definidas para cada sitio.",
+      "Recibimos alertas, damos seguimiento a eventos y coordinamos con las personas definidas para cada operación.",
     features: [
-      "Seguimiento de alertas",
-      "Verificación de eventos",
-      "Comunicación con responsables",
-      "Supervisión centralizada",
+      "Recepción de alertas",
+      "Seguimiento y verificación",
+      "Coordinación y escalamiento",
+      "Registro de eventos",
     ],
   },
   services: {
     eyebrow: "Servicios",
-    title: "Sistemas pensados para cada sitio",
+    title: "Protección adaptada a tus operaciones.",
     description:
-      "Revisamos qué debe protegerse y combinamos videovigilancia, accesos, alarmas, monitoreo y mantenimiento.",
+      "Desplegamos vigilancia, custodia, GPS, videovigilancia y tecnología perimetral según los requerimientos de tu empresa.",
   },
   sectors: {
-    eyebrow: "Sectores",
-    title: "Cada entorno exige una estrategia distinta",
+    eyebrow: "Soluciones por necesidad",
+    title: "Soluciones para cada tipo de operación",
     description:
-      "Adaptamos la tecnología, la cobertura y el diseño de la instalación a la forma en que opera cada sitio.",
-    cta: "Evaluar mi sitio",
+      "Partimos de lo que se necesita proteger para combinar tecnología, monitoreo y seguimiento.",
+    cta: "Solicitar información",
     ctaDescription:
-      "El alcance se define después de evaluar accesos, áreas críticas, operación y condiciones del inmueble.",
+      "El alcance se define según el sitio, el recorrido y el nivel de protección requerido.",
+    sectorValidation:
+      "Sectores de posible aplicación; pendientes de validación comercial con BÚNKER.",
   },
   process: {
     eyebrow: "Proceso",
-    title: "Cómo trabajamos",
-    description: "Un método claro, de la primera visita al soporte continuo.",
+    title: "Cómo protegemos tu operación",
+    description:
+      "Una secuencia clara para dar seguimiento a información, eventos y procedimientos.",
   },
   projects: {
     eyebrow: "Proyectos",
@@ -65,18 +68,19 @@ export const pageContent = {
   },
   contact: {
     eyebrow: "Contacto",
-    title: "Solicita una evaluación de tu sitio",
+    title: "Hablemos sobre los requerimientos operativos de tu empresa",
     description:
-      "Comparte los datos básicos del sitio y el servicio que necesitas. Con eso podemos revisar el alcance antes de preparar una propuesta.",
+      "Déjanos tus datos para revisar tus requerimientos técnicos y operativos, buscando proponer soluciones estructuradas para tu corporativo o flotilla.",
   },
   finalCta: {
     eyebrow: "Siguiente paso",
-    title: ["Hablemos de", "tu proyecto de seguridad."],
-    description: "Cuéntanos qué necesitas proteger y revisamos contigo la solución adecuada.",
+    title: ["¿Tu operación tiene la", "visibilidad que requiere?"],
+    description:
+      "Hablemos sobre las características de tus rutas o instalaciones y evaluemos cómo coordinar personal, tecnología y monitoreo.",
   },
   footer: {
     description:
-      "Diseño, instalación y monitoreo de sistemas de seguridad para hogares, comercios, corporativos e industria.",
+      "Integramos personal, tecnología, rastreo GPS y monitoreo para apoyar la protección de logística e instalaciones.",
   },
   clients: {
     eyebrow: "Clientes",

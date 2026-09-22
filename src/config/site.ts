@@ -3,18 +3,17 @@
  * PENDIENTE = placeholder data waiting for confirmation from the client.
  */
 export const siteConfig = {
-  companyName: "BÚNKER SERVICIOS INTEGRALES DE TECNOLOGÍA",
+  companyName: "BÚNKER Servicios Integrales de Tecnología S.A. de C.V.",
   shortName: "BÚNKER",
   domain: "PENDIENTE",
-  // PENDIENTE: confirmar datos reales de contacto antes de habilitar enlaces.
-  phone: "",
-  phoneHref: "",
+  phone: "+52 729 383 1608",
+  phoneHref: "tel:+527293831608",
   whatsapp: "",
   whatsappDisplay: "",
-  email: "",
+  email: "contacto@bunkermexico.com.mx",
   address: {
-    line1: "",
-    line2: "",
+    line1: "Miguel Hidalgo #5, San Francisco Coaxusco",
+    line2: "Metepec, Estado de México, C.P. 52140, México",
   },
   socialLinks: {
     facebook: "PENDIENTE",

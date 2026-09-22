@@ -10,20 +10,20 @@ import { Services } from "@/components/sections/Services";
 import { Monitoring } from "@/components/sections/Monitoring";
 import { Sectors } from "@/components/sections/Sectors";
 import { Process } from "@/components/sections/Process";
-import { Projects } from "@/components/sections/Projects";
+import { Benefits } from "@/components/sections/Benefits";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Clients } from "@/components/sections/Clients";
 import { Blog } from "@/components/sections/Blog";
 import { RecoveryCases } from "@/components/sections/RecoveryCases";
-import { FieldVideos } from "@/components/sections/FieldVideos";
 import { NationalCoverage } from "@/components/sections/NationalCoverage";
 import { organizationStructuredData, siteConfig } from "@/config/site";
+import logoOg from "../../assets/logo-og.png";
 
-const title = `${siteConfig.companyName} | Videovigilancia y monitoreo 24/7`;
+const title = "BÚNKER | Servicios Integrales de Tecnología, Vigilancia y Monitoreo";
 const description =
-  "Diseño, instalación y monitoreo 24/7 de sistemas de videovigilancia CCTV e IP, control de acceso y alarmas para residencias, comercios, corporativos e industria.";
+  "Integramos personal, tecnología, rastreo GPS y monitoreo para proteger logística e instalaciones en México. Conoce nuestros servicios para empresas.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,9 +33,11 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: logoOg },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
+      { name: "twitter:image", content: logoOg },
     ],
   }),
   component: Index,
@@ -61,8 +63,7 @@ function Index() {
         <Monitoring />
         <Sectors />
         <Process />
-        <Projects />
-        <FieldVideos />
+        <Benefits />
         <NationalCoverage />
         <Blog />
         <Faq />

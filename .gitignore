@@ -16,9 +16,24 @@ dist-ssr
 .nitro
 *.local
 
+# Environment files and local legal notes
+.env
+.env.*
+!.env.example
+legal.local.md
+
 # Local Directus data and secrets
 /directus/.env
 /directus/uploads/
+/directus/*.db
+/directus/*.sqlite
+/directus/*.sqlite3
+/directus/postgres_data/
+
+# Local Codex tooling and personal skills
+/.codex/
+/.agents/
+/stark/
 
 # Wrangler / Cloudflare
 .wrangler/

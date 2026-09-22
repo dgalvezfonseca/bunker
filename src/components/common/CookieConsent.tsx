@@ -3,101 +3,60 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "./Button";
 import { Icon } from "./Icon";
+import {
+  readCookiePreferences,
+  saveCookiePreferences,
+  type CookiePreferences,
+} from "./cookiePreferences";
 import { cn } from "@/lib/utils";
-
-type CookiePreferences = {
-  necessary: true;
-  analytics: boolean;
-  marketing: boolean;
-  savedAt: string;
-  version: 1;
-};
-
-const STORAGE_KEY = "bsit_cookie_preferences_v1";
-const CONSENT_DURATION_MS = 180 * 24 * 60 * 60 * 1000;
-
-function readPreferences(): CookiePreferences | null {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-
-    const preferences = JSON.parse(raw) as Partial<CookiePreferences>;
-    const savedAt = Date.parse(preferences.savedAt ?? "");
-    const expired = !Number.isFinite(savedAt) || Date.now() - savedAt > CONSENT_DURATION_MS;
-
-    if (preferences.version !== 1 || expired) return null;
-
-    return {
-      necessary: true,
-      analytics: Boolean(preferences.analytics),
-      marketing: Boolean(preferences.marketing),
-      savedAt: preferences.savedAt ?? new Date().toISOString(),
-      version: 1,
-    };
-  } catch {
-    return null;
-  }
-}
-
-function savePreferences(analytics: boolean, marketing: boolean): CookiePreferences {
-  const preferences: CookiePreferences = {
-    necessary: true,
-    analytics,
-    marketing,
-    savedAt: new Date().toISOString(),
-    version: 1,
-  };
-
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
-  window.dispatchEvent(new CustomEvent("cookie-preferences-changed", { detail: preferences }));
-  return preferences;
-}
 
 export function CookieConsent() {
   const [preferences, setPreferences] = useState<CookiePreferences | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [functional, setFunctional] = useState(false);
   const [analytics, setAnalytics] = useState(false);
-  const [marketing, setMarketing] = useState(false);
   const dialogRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
+  const syncPreferences = useCallback((next: CookiePreferences | null) => {
+    setPreferences(next);
+    setFunctional(next?.functional ?? false);
+    setAnalytics(next?.analytics ?? false);
+  }, []);
+
   const showPreferences = useCallback(() => {
     previousFocusRef.current =
       document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const latest = readPreferences();
-    setAnalytics(latest?.analytics ?? false);
-    setMarketing(latest?.marketing ?? false);
+    syncPreferences(readCookiePreferences());
     setPanelOpen(true);
-  }, []);
+  }, [syncPreferences]);
 
   useEffect(() => {
-    const stored = readPreferences();
-    setPreferences(stored);
-    setAnalytics(stored?.analytics ?? false);
-    setMarketing(stored?.marketing ?? false);
+    syncPreferences(readCookiePreferences());
     setInitialized(true);
-
+    const handleChange = (event: Event) =>
+      syncPreferences((event as CustomEvent<CookiePreferences>).detail ?? readCookiePreferences());
     window.addEventListener("open-cookie-preferences", showPreferences);
-    return () => window.removeEventListener("open-cookie-preferences", showPreferences);
-  }, [showPreferences]);
+    window.addEventListener("cookie-preferences-changed", handleChange);
+    return () => {
+      window.removeEventListener("open-cookie-preferences", showPreferences);
+      window.removeEventListener("cookie-preferences-changed", handleChange);
+    };
+  }, [showPreferences, syncPreferences]);
 
   useEffect(() => {
     if (!panelOpen) return;
-
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
-
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setPanelOpen(false);
       if (event.key !== "Tab") return;
-
       const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
       );
       if (!focusable?.length) return;
-
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (event.shiftKey && document.activeElement === first) {
@@ -109,7 +68,6 @@ export function CookieConsent() {
       }
     };
     window.addEventListener("keydown", closeOnEscape);
-
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", closeOnEscape);
@@ -117,13 +75,9 @@ export function CookieConsent() {
     };
   }, [panelOpen]);
 
-  const choose = (nextAnalytics: boolean, nextMarketing: boolean) => {
-    setPreferences(savePreferences(nextAnalytics, nextMarketing));
-    setAnalytics(nextAnalytics);
-    setMarketing(nextMarketing);
+  const choose = (nextFunctional: boolean, nextAnalytics: boolean) => {
+    syncPreferences(saveCookiePreferences(nextFunctional, nextAnalytics));
     setPanelOpen(false);
-
-    // TODO: cargar aquí proveedores opcionales solo después del consentimiento correspondiente.
   };
 
   if (!initialized) return null;
@@ -141,9 +95,8 @@ export function CookieConsent() {
                 Tu privacidad importa
               </p>
               <p className="mt-2 max-w-3xl text-xs leading-relaxed text-ink-muted sm:text-sm">
-                Usamos almacenamiento necesario para recordar tus preferencias. Los rastreadores de
-                analítica o marketing permanecerán desactivados salvo que los aceptes y se configure
-                un proveedor.
+                Solo guardamos tu elección como almacenamiento necesario. El chat y la analítica
+                opcional permanecen desactivados hasta que los autorices.
               </p>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
                 <Link
@@ -160,10 +113,9 @@ export function CookieConsent() {
                 </Link>
               </div>
             </div>
-
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap lg:max-w-md lg:justify-end">
               <Button variant="ghost" onClick={() => choose(false, false)}>
-                Rechazar opcionales
+                Rechazar no necesarias
               </Button>
               <Button variant="outline" onClick={showPreferences}>
                 Configurar
@@ -173,7 +125,6 @@ export function CookieConsent() {
           </div>
         </section>
       ) : null}
-
       {panelOpen ? (
         <div className="fixed inset-0 z-[80] grid place-items-center bg-primary-dark/70 p-3 backdrop-blur-sm sm:p-6">
           <section
@@ -197,14 +148,11 @@ export function CookieConsent() {
                 <Icon name="close" className="text-2xl" />
               </button>
             </header>
-
             <div className="overflow-y-auto px-5 py-6 sm:px-7">
               <p className="text-sm leading-relaxed text-ink-muted">
-                Puedes decidir qué categorías opcionales permitir. Actualmente el sitio no tiene
-                herramientas de analítica ni publicidad configuradas; estas preferencias dejan el
-                control preparado para una integración futura.
+                Puedes decidir qué categorías opcionales permitir. La analítica no está configurada
+                actualmente; el chat solo se carga cuando lo activas.
               </p>
-
               <div className="mt-6 divide-y divide-line border-y border-line">
                 <PreferenceRow
                   title="Almacenamiento necesario"
@@ -214,30 +162,27 @@ export function CookieConsent() {
                   onChange={() => undefined}
                 />
                 <PreferenceRow
+                  title="Funcionales"
+                  description="Permite activar el chat de tawk.to cuando decides usarlo."
+                  checked={functional}
+                  onChange={() => setFunctional((value) => !value)}
+                />
+                <PreferenceRow
                   title="Analítica"
-                  description="Permitirá medir visitas y uso del sitio cuando se configure un proveedor aprobado."
+                  description="Actualmente no se carga analítica opcional hasta que sea configurada."
                   checked={analytics}
                   onChange={() => setAnalytics((value) => !value)}
                 />
-                <PreferenceRow
-                  title="Marketing"
-                  description="Permitirá medir campañas o personalizar publicidad cuando exista una integración aprobada."
-                  checked={marketing}
-                  onChange={() => setMarketing((value) => !value)}
-                />
               </div>
-
               <p className="mt-5 text-xs leading-relaxed text-ink-muted">
-                Puedes cambiar tu elección en cualquier momento desde “Preferencias de cookies” en
-                el pie de página.
+                Puedes cambiar tu elección en cualquier momento desde el pie de página.
               </p>
             </div>
-
             <footer className="flex flex-col-reverse gap-2 border-t border-line bg-surface px-5 py-4 sm:flex-row sm:justify-end sm:px-7">
               <Button variant="ghost" onClick={() => choose(false, false)}>
-                Rechazar opcionales
+                Rechazar no necesarias
               </Button>
-              <Button variant="outline" onClick={() => choose(analytics, marketing)}>
+              <Button variant="outline" onClick={() => choose(functional, analytics)}>
                 Guardar preferencias
               </Button>
               <Button onClick={() => choose(true, true)}>Aceptar todas</Button>

@@ -5,6 +5,7 @@ import { Container } from "@/components/common/Container";
 import { Icon } from "@/components/common/Icon";
 import { ButtonLink } from "@/components/common/Button";
 import { BrandWordmark } from "@/components/common/BrandWordmark";
+import { withBasePath } from "@/lib/base-path";
 import { mainNav } from "@/data/navigation";
 import { siteConfig } from "@/config/site";
 import { useScrollHeader } from "@/hooks/useScrollHeader";
@@ -38,7 +39,11 @@ export function Header() {
             scrolled ? "h-[4.5rem]" : "h-20",
           )}
         >
-          <a href="/#inicio" aria-label={`${siteConfig.companyName} — Inicio`} className="min-w-0">
+          <a
+            href={withBasePath("/#inicio")}
+            aria-label={`${siteConfig.companyName} — Inicio`}
+            className="min-w-0"
+          >
             <BrandWordmark
               className={cn(
                 "transition-[transform,opacity] duration-[220ms] ease-out hover:opacity-90",
@@ -78,7 +83,7 @@ export function Header() {
                       </button>
                     ) : (
                       <a
-                        href={item.href}
+                        href={withBasePath(item.href)}
                         aria-current={active ? "page" : undefined}
                         className={cn(
                           "flex min-h-11 items-center px-3 text-sm font-semibold transition-colors duration-200 hover:text-surface-elevated",
@@ -102,7 +107,7 @@ export function Header() {
                         {item.children.map((child) => (
                           <a
                             key={child.href}
-                            href={child.href}
+                            href={withBasePath(child.href)}
                             role="menuitem"
                             onClick={() => setOpenDropdown(null)}
                             className="group flex min-h-11 items-center justify-between gap-4 px-4 py-2.5 text-sm font-semibold text-ink transition-[background-color,color] duration-200 hover:bg-primary-soft hover:text-primary focus:bg-primary-soft focus:text-primary"
@@ -184,7 +189,7 @@ export function Header() {
                     {item.children.map((child) => (
                       <a
                         key={child.href}
-                        href={child.href}
+                        href={withBasePath(child.href)}
                         onClick={close}
                         className="flex min-h-11 items-center border-b border-surface-elevated/10 text-sm font-medium text-warm-gray-300 hover:text-surface-elevated"
                       >
@@ -196,7 +201,7 @@ export function Header() {
               ) : (
                 <a
                   key={item.href}
-                  href={item.href}
+                  href={withBasePath(item.href)}
                   onClick={close}
                   aria-current={active ? "page" : undefined}
                   className={baseClass}

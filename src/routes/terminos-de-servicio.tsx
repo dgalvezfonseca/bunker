@@ -3,89 +3,79 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
 import { siteConfig } from "@/config/site";
 
-const title = `Términos de servicio | ${siteConfig.companyName}`;
-const description = `Condiciones generales para el uso del sitio web de ${siteConfig.companyName}.`;
+const title = `Términos de servicio | ${siteConfig.shortName}`;
 
 export const Route = createFileRoute("/terminos-de-servicio")({
   head: () => ({
     meta: [
       { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { name: "twitter:title", content: title },
-      { name: "twitter:description", content: description },
+      {
+        name: "description",
+        content: `Condiciones generales para el uso del sitio web de ${siteConfig.shortName}.`,
+      },
     ],
   }),
   component: TermsOfService,
 });
 
 function TermsOfService() {
+  const address = [siteConfig.address.line1, siteConfig.address.line2].join(", ");
   return (
     <LegalPageLayout
       eyebrow="Condiciones de uso"
       title="Términos de servicio"
       description="Reglas generales para consultar el sitio y solicitar información comercial."
     >
-      <p className="legal-updated">Última actualización del borrador: 1 de septiembre de 2026.</p>
+      <p className="legal-updated">Última actualización: 21 de septiembre de 2026.</p>
 
       <h2>1. Titular del sitio</h2>
       <p>
-        Este sitio corresponde a <strong>{siteConfig.companyName}</strong>. El domicilio, correo y
-        demás datos jurídicos del titular están pendientes de confirmación y deberán incorporarse
-        antes de su publicación definitiva.
+        Este sitio corresponde a <strong>{siteConfig.companyName}</strong>, con domicilio en{" "}
+        {address}. Contacto: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
       </p>
 
-      <h2>2. Objeto informativo</h2>
+      <h2>2. Contenido informativo y solicitudes</h2>
       <p>
-        El contenido presenta de forma general soluciones de seguridad electrónica. La información
-        del sitio no constituye por sí sola una oferta vinculante, contrato, diagnóstico técnico ni
-        garantía de disponibilidad. Cada alcance deberá documentarse en una propuesta y contrato
-        específicos.
+        La información del sitio es de carácter general e informativo. Enviar una solicitud o usar
+        el chat no crea una contratación automática, promesa de disponibilidad ni garantía. Los
+        servicios, alcances, precios, tiempos y responsabilidades se definirán, cuando corresponda,
+        en una cotización, propuesta y contrato específicos.
       </p>
 
-      <h2>3. Solicitudes y cotizaciones</h2>
+      <h2>3. Formularios y chat</h2>
       <p>
-        Enviar una solicitud de información no crea una relación contractual. Precios, cobertura,
-        equipos, tiempos, monitoreo, mantenimiento y responsabilidades se definirán por escrito
-        después de evaluar el proyecto.
+        El formulario y el chat se ofrecen como canales de contacto. No envíes información sensible,
+        financiera, contraseñas ni detalles operativos de seguridad. El tratamiento de datos
+        personales se explica en el <Link to="/aviso-de-privacidad">Aviso de Privacidad</Link> y las
+        funciones opcionales en la <Link to="/politica-de-cookies">Política de cookies</Link>.
       </p>
 
-      <h2>4. Uso permitido</h2>
-      <p>Queda prohibido:</p>
-      <ul>
-        <li>Intentar vulnerar, saturar o interferir con el sitio.</li>
-        <li>Usar formularios o canales de contacto para fraude, spam o actividades ilícitas.</li>
-        <li>Copiar marcas, textos, fotografías o diseños sin autorización.</li>
-        <li>Presentar contenido de muestra como si acreditara un proyecto o cliente real.</li>
-      </ul>
-
-      <h2>5. Contenido de muestra y terceros</h2>
+      <h2>4. Propiedad intelectual y enlaces externos</h2>
       <p>
-        Las fotografías y proyectos identificados como muestra deberán reemplazarse o licenciarse
-        antes del lanzamiento. Las marcas mencionadas describen tecnologías disponibles y no
-        implican una relación de distribución, certificación o representación oficial.
+        Las marcas, textos, fotografías, diseños y demás contenidos del sitio están protegidos por
+        las disposiciones aplicables y no pueden utilizarse sin autorización. Los enlaces a sitios
+        de terceros se rigen por sus propias condiciones y políticas.
       </p>
 
-      <h2>6. Disponibilidad y responsabilidad</h2>
+      <h2>5. Disponibilidad</h2>
       <p>
-        Se procurará mantener información correcta y un acceso razonable al sitio, pero las
-        condiciones específicas de responsabilidad, garantías, límites e indemnización deberán
-        revisarse con la asesoría jurídica del negocio y armonizarse con los contratos de servicio.
+        Procuramos mantener la información y el acceso al sitio actualizados, pero pueden ocurrir
+        interrupciones, modificaciones o errores. Esto no limita los derechos que la legislación
+        aplicable reconozca de forma irrenunciable.
       </p>
 
-      <h2>7. Privacidad</h2>
+      <h2>6. Casos históricos</h2>
       <p>
-        El tratamiento de datos personales se describe en el
-        <Link to="/aviso-de-privacidad"> aviso de privacidad</Link>. Las tecnologías del navegador
-        se explican en la <Link to="/politica-de-cookies">política de cookies</Link>.
+        Los casos de éxito describen incidentes históricos particulares. No representan una garantía
+        de recuperación, tiempo de respuesta ni resultado futuro; cada evento depende de sus
+        circunstancias y factores externos.
       </p>
 
-      <h2>8. Legislación y jurisdicción</h2>
+      <h2>7. Legislación y jurisdicción</h2>
       <p>
-        La legislación aplicable, mecanismos de solución de controversias y jurisdicción están
-        pendientes de validación jurídica de acuerdo con el domicilio real del negocio y el alcance
-        de sus operaciones.
+        En lo permitido por la legislación aplicable y sin perjuicio de derechos irrenunciables,
+        cualquier controversia relacionada con el uso de este sitio se someterá a las autoridades
+        competentes de Metepec, Estado de México.
       </p>
     </LegalPageLayout>
   );

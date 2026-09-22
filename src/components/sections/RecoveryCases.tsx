@@ -13,9 +13,7 @@ export function RecoveryCases() {
             <h2 className="mt-5 max-w-2xl text-headline">{recoverySection.title}</h2>
             <p className="text-lead mt-6 max-w-xl text-ink-muted">{recoverySection.description}</p>
             <div className="mt-10 border-l-2 border-primary pl-5 sm:pl-7">
-              <p className="font-display text-[clamp(4.5rem,9vw,8.5rem)] leading-[.84] font-extrabold tracking-[-0.065em] text-primary">
-                {recoverySection.stat}
-              </p>
+              <p className="text-stat text-primary">{recoverySection.stat}</p>
               <p className="mt-5 max-w-sm text-lg font-semibold leading-snug text-ink">
                 {recoverySection.statLabel}
               </p>
@@ -41,9 +39,7 @@ export function RecoveryCases() {
                   </span>
                   <div>
                     <p className="text-eyebrow text-ink-muted">{item.title}</p>
-                    <p className="mt-2 font-display text-[clamp(2rem,3vw,3.25rem)] font-extrabold leading-none tracking-[-0.045em] text-ink">
-                      {item.duration}
-                    </p>
+                    <p className="text-metric mt-2 text-ink">{item.duration}</p>
                     <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-muted">
                       {item.category} · {item.result}
                     </p>

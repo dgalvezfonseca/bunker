@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type InputHTMLAttributes } from "react";
+import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/common/Container";
 import { Icon } from "@/components/common/Icon";
@@ -12,9 +13,14 @@ import { pageContent } from "@/data/page-content";
 
 type FieldName = "name" | "company" | "phone" | "email" | "service" | "message";
 type FormErrors = Partial<Record<FieldName, string>>;
+type SubmissionStatus = "idle" | "sending" | "success" | "error";
+
+const web3FormsEndpoint = "https://api.web3forms.com/submit";
+const web3FormsAccessKey =
+  import.meta.env["VITE_WEB3FORMS_ACCESS_KEY"] ?? "f4fc72cf-f80c-4895-8532-808377d9fb17";
 
 const inputClass =
-  "min-h-12 w-full rounded-[4px] border border-line bg-surface-elevated px-4 py-3 text-base text-ink outline-none transition-[border-color,background-color,box-shadow] duration-[200ms] ease-out placeholder:text-ink-muted/60 focus:border-primary focus:bg-warm-white focus:shadow-[0_0_0_3px_rgba(0,110,255,0.14)]";
+  "min-h-10 w-full rounded-[4px] border border-line bg-surface-elevated px-4 py-2 text-base text-ink outline-none transition-[border-color,background-color,box-shadow] duration-[200ms] ease-out placeholder:text-ink-muted/60 focus:border-primary focus:bg-warm-white focus:shadow-[0_0_0_3px_rgba(0,110,255,0.14)]";
 
 function validate(form: HTMLFormElement): FormErrors {
   const data = new FormData(form);
@@ -23,7 +29,6 @@ function validate(form: HTMLFormElement): FormErrors {
   const name = value("name");
   const phone = value("phone");
   const email = value("email");
-  const message = value("message");
   const phoneDigits = phone.replace(/\D/g, "");
 
   if (name.length < 2) errors.name = "Escribe tu nombre (mínimo 2 caracteres).";
@@ -33,7 +38,6 @@ function validate(form: HTMLFormElement): FormErrors {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     errors.email = "Escribe un correo electrónico válido.";
   }
-  if (message.length < 10) errors.message = "Cuéntanos un poco más (mínimo 10 caracteres).";
 
   return errors;
 }
@@ -42,30 +46,50 @@ export function Contact() {
   const content = pageContent.contact;
   const [errors, setErrors] = useState<FormErrors>({});
   const [readyMessage, setReadyMessage] = useState("");
+  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
   const hasDirectContact = hasPhone || hasEmail || hasAddress || hasWhatsapp;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate(event.currentTarget);
     setErrors(nextErrors);
     setReadyMessage("");
+    setSubmissionStatus("idle");
 
     const firstError = Object.keys(nextErrors)[0] as FieldName | undefined;
     if (firstError) {
       const field = event.currentTarget.elements.namedItem(firstError);
       if (field instanceof HTMLElement) field.focus();
-    } else {
-      // TODO: conectar aquí el proveedor de formularios o endpoint aprobado por el cliente.
-      setReadyMessage(
-        "Tus datos son válidos. El envío estará disponible cuando se conecte el servicio de formularios.",
-      );
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("access_key", web3FormsAccessKey);
+    setSubmissionStatus("sending");
+    setReadyMessage("Enviando tu solicitud…");
+
+    try {
+      const response = await fetch(web3FormsEndpoint, { method: "POST", body: formData });
+      const data: { success?: boolean; message?: string } = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message ?? "No fue posible enviar la solicitud.");
+      }
+
+      form.reset();
+      setSubmissionStatus("success");
+      setReadyMessage("Recibimos tu solicitud. Nos pondremos en contacto contigo.");
+    } catch {
+      setSubmissionStatus("error");
+      setReadyMessage("No fue posible enviar tu solicitud. Inténtalo nuevamente.");
     }
   };
 
   return (
     <section id="contacto" className="section-y section-rule bg-surface-elevated">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] lg:gap-14">
           <Reveal from="left">
             <SectionHeading
               index="09"
@@ -136,12 +160,12 @@ export function Contact() {
             <form
               noValidate
               onSubmit={handleSubmit}
-              className="border-x border-b border-line border-t-2 border-t-primary bg-surface p-5 sm:p-8 lg:p-10"
+              className="border-x border-b border-line border-t-2 border-t-primary bg-surface p-5 sm:p-7 lg:p-8"
               aria-label="Solicitud de información"
             >
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <FormField
-                  label="Nombre"
+                  label="Nombre completo"
                   name="name"
                   required
                   error={errors.name}
@@ -166,7 +190,7 @@ export function Contact() {
                   maxLength={24}
                 />
                 <FormField
-                  label="Correo electrónico"
+                  label="Correo corporativo"
                   name="email"
                   type="email"
                   autoComplete="email"
@@ -176,8 +200,11 @@ export function Contact() {
                 />
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="service" className="mb-2 block text-sm font-semibold text-ink">
-                    Servicio requerido
+                  <label
+                    htmlFor="service"
+                    className="mb-1.5 block text-[0.8125rem] font-semibold text-ink"
+                  >
+                    ¿En qué servicio estás interesado?
                   </label>
                   <select id="service" name="service" defaultValue="" className={inputClass}>
                     <option value="">Selecciona una opción</option>
@@ -190,42 +217,64 @@ export function Contact() {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="message" className="mb-2 block text-sm font-semibold text-ink">
-                    Mensaje <span aria-hidden="true">*</span>
+                  <label
+                    htmlFor="message"
+                    className="mb-1.5 block text-[0.8125rem] font-semibold text-ink"
+                  >
+                    Breve descripción de tu proyecto{" "}
+                    <span className="text-ink-muted">(Opcional)</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    required
-                    minLength={10}
                     maxLength={1000}
-                    rows={5}
+                    rows={4}
                     aria-invalid={Boolean(errors.message)}
-                    aria-describedby={errors.message ? "message-error" : undefined}
                     className={cn(inputClass, "resize-y", errors.message && "border-red-600")}
                   />
-                  {errors.message ? (
-                    <p id="message-error" className="field-message mt-1.5 text-sm text-red-700">
-                      {errors.message}
-                    </p>
-                  ) : null}
                 </div>
               </div>
 
-              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <button
-                  type="submit"
-                  className="min-h-13 rounded-[6px] bg-primary px-7 py-4 text-sm font-semibold tracking-[0.06em] text-primary-foreground uppercase shadow-[0_8px_22px_rgba(0,110,255,0.16)] transition-[background-color,box-shadow,transform] duration-[200ms] ease-out hover:-translate-y-px hover:bg-primary hover:shadow-[0_11px_26px_rgba(0,78,179,0.24)] active:translate-y-0"
-                >
-                  Solicitar información
-                </button>
-                <p className="text-xs leading-relaxed text-ink-muted">* Campos obligatorios</p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="max-w-xl text-xs leading-relaxed text-ink-muted">
+                  <p>
+                    Al enviar tus datos, BÚNKER Servicios Integrales de Tecnología S.A. de C.V. los
+                    tratará para atender tu solicitud y, en su caso, preparar una cotización.
+                    Utilizamos Web3Forms como proveedor tecnológico para procesar el envío. Consulta
+                    nuestro{" "}
+                    <Link
+                      to="/aviso-de-privacidad"
+                      className="font-semibold text-primary hover:text-primary-dark"
+                    >
+                      Aviso de Privacidad
+                    </Link>
+                    .
+                  </p>
+                  <p className="mt-2">
+                    No compartas contraseñas, datos bancarios, datos de salud ni información
+                    operativa sensible mediante este formulario.
+                  </p>
+                </div>
+                <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
+                  <button
+                    type="submit"
+                    disabled={submissionStatus === "sending"}
+                    className="min-h-11 rounded-[6px] bg-primary px-6 py-3 text-sm font-semibold tracking-[0.06em] text-primary-foreground uppercase shadow-[0_8px_22px_rgba(0,110,255,0.16)] transition-[background-color,box-shadow,transform] duration-[200ms] ease-out hover:-translate-y-px hover:bg-primary hover:shadow-[0_11px_26px_rgba(0,78,179,0.24)] active:translate-y-0"
+                  >
+                    {submissionStatus === "sending" ? "Enviando…" : "Evaluar mi operación"}
+                  </button>
+                  <p className="text-xs leading-4 text-ink-muted">* Campos obligatorios</p>
+                </div>
               </div>
 
               {readyMessage ? (
                 <p
                   role="status"
-                  className="field-message mt-5 border-l-2 border-primary bg-surface-elevated px-4 py-3 text-sm text-ink"
+                  aria-live="polite"
+                  className={cn(
+                    "field-message mt-5 border-l-2 bg-surface-elevated px-4 py-3 text-sm text-ink",
+                    submissionStatus === "error" ? "border-red-600" : "border-primary",
+                  )}
                 >
                   {readyMessage}
                 </p>
@@ -256,7 +305,7 @@ function FormField({
 
   return (
     <div>
-      <label htmlFor={name} className="mb-2 block text-sm font-semibold text-ink">
+      <label htmlFor={name} className="mb-1.5 block text-[0.8125rem] font-semibold text-ink">
         {label} {required ? <span aria-hidden="true">*</span> : null}
       </label>
       <input

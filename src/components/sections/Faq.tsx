@@ -19,26 +19,28 @@ export function Faq() {
           />
 
           <div className="border-t border-black-950">
-            {faqs.map((faq, i) => (
-              <Reveal key={faq.question} delay={i * 55} from={i % 2 === 0 ? "up" : "left"}>
-                <details className="group border-b border-line py-1">
-                  <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 text-base font-semibold text-ink transition-colors duration-[180ms] hover:text-primary">
-                    {faq.question}
-                    <Icon
-                      name="expand_more"
-                      className="text-2xl text-primary transition-transform duration-[220ms] ease-out group-open:rotate-180"
-                    />
-                  </summary>
-                  <div className="faq-answer">
-                    <div className="overflow-hidden">
-                      <p className="max-w-2xl pb-5 text-sm leading-relaxed text-ink-muted">
-                        {faq.answer}
-                      </p>
+            {faqs
+              .filter((faq) => faq.published)
+              .map((faq, i) => (
+                <Reveal key={faq.question} delay={i * 55} from={i % 2 === 0 ? "up" : "left"}>
+                  <details className="group border-b border-line py-1">
+                    <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 text-base font-semibold text-ink transition-colors duration-[180ms] hover:text-primary">
+                      {faq.question}
+                      <Icon
+                        name="expand_more"
+                        className="text-2xl text-primary transition-transform duration-[220ms] ease-out group-open:rotate-180"
+                      />
+                    </summary>
+                    <div className="faq-answer">
+                      <div className="overflow-hidden">
+                        <p className="max-w-2xl pb-5 text-sm leading-relaxed text-ink-muted">
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </details>
-              </Reveal>
-            ))}
+                  </details>
+                </Reveal>
+              ))}
           </div>
         </div>
       </Container>
