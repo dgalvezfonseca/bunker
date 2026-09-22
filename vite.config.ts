@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   vite: {
-    base: isGitHubPagesBuild ? "/bunker-elevate/" : "/",
+    base: isGitHubPagesBuild ? "/bunker/" : "/",
     server: {
       allowedHosts: [".trycloudflare.com"],
     },
