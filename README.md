@@ -11,5 +11,4 @@ Sitio corporativo de BÚNKER Servicios Integrales de Tecnología S.A. de C.V.
 - Vite
 - Tailwind CSS
 
-## Desarrollo
 
