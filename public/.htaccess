@@ -1,6 +1,5 @@
 # ============================================================
 # Plantilla Apache — BÚNKER SERVICIOS INTEGRALES DE TECNOLOGÍA
-# Squarespace administrado NO procesa archivos .htaccess.
 # Conservar para un posible hosting Apache/exportación futura.
 # Revisar AllowOverride y módulos disponibles antes de activar.
 # ============================================================
