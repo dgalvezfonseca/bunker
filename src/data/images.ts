@@ -72,13 +72,13 @@ export const blogImages = {
   custodia: {
     id: "blog-custodia",
     src: custodio,
-    alt: "Unidades de custodia acompañando un camión BÚNKER",
+    alt: "Camión de carga acompañado por vehículos en carretera",
     objectPosition: "center",
   },
   monitoreo: {
     id: "blog-monitoreo",
     src: bunkerMonitores,
-    alt: "Personal de BÚNKER coordinando desde el centro de monitoreo",
+    alt: "Pantallas de monitoreo y seguimiento operativo",
     objectPosition: "center",
   },
   decisionesGps: {
