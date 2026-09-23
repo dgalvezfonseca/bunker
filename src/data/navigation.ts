@@ -35,6 +35,8 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: "Custodia en tránsito", href: "/servicios/custodia" },
       { label: "GPS y Rastreo", href: "/servicios/gps-rastreo" },
       { label: "Videovigilancia", href: "/servicios/videovigilancia" },
+      { label: "Dashcam con IA", href: "/servicios/dashcam-ia" },
+      { label: "Tecnología perimetral", href: "/servicios/tecnologia-perimetral" },
       { label: "Monitoreo", href: "/servicios/monitoreo" },
       { label: "Instalación y soporte", href: "/servicios/instalacion-soporte" },
     ],

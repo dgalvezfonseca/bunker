@@ -26,6 +26,14 @@ import { Route as CasosDeExitoIndexRouteImport } from './routes/casos-de-exito.i
 import { Route as CasosDeExitoSlugRouteImport } from './routes/casos-de-exito.$slug'
 import { Route as ServiciosIndexRouteImport } from './routes/servicios.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
+import { Route as ServiciosCustodiaRouteImport } from './routes/servicios.custodia'
+import { Route as ServiciosDashcamIaRouteImport } from './routes/servicios.dashcam-ia'
+import { Route as ServiciosGpsRastreoRouteImport } from './routes/servicios.gps-rastreo'
+import { Route as ServiciosInstalacionSoporteRouteImport } from './routes/servicios.instalacion-soporte'
+import { Route as ServiciosMonitoreoRouteImport } from './routes/servicios.monitoreo'
+import { Route as ServiciosTecnologiaPerimetralRouteImport } from './routes/servicios.tecnologia-perimetral'
+import { Route as ServiciosVideovigilanciaRouteImport } from './routes/servicios.videovigilancia'
+import { Route as ServiciosVigilanciaRouteImport } from './routes/servicios.vigilancia'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -112,6 +120,49 @@ const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ServiciosRoute,
 } as any)
+const ServiciosCustodiaRoute = ServiciosCustodiaRouteImport.update({
+  id: '/custodia',
+  path: '/custodia',
+  getParentRoute: () => ServiciosRoute,
+} as any)
+const ServiciosDashcamIaRoute = ServiciosDashcamIaRouteImport.update({
+  id: '/dashcam-ia',
+  path: '/dashcam-ia',
+  getParentRoute: () => ServiciosRoute,
+} as any)
+const ServiciosGpsRastreoRoute = ServiciosGpsRastreoRouteImport.update({
+  id: '/gps-rastreo',
+  path: '/gps-rastreo',
+  getParentRoute: () => ServiciosRoute,
+} as any)
+const ServiciosInstalacionSoporteRoute =
+  ServiciosInstalacionSoporteRouteImport.update({
+    id: '/instalacion-soporte',
+    path: '/instalacion-soporte',
+    getParentRoute: () => ServiciosRoute,
+  } as any)
+const ServiciosMonitoreoRoute = ServiciosMonitoreoRouteImport.update({
+  id: '/monitoreo',
+  path: '/monitoreo',
+  getParentRoute: () => ServiciosRoute,
+} as any)
+const ServiciosTecnologiaPerimetralRoute =
+  ServiciosTecnologiaPerimetralRouteImport.update({
+    id: '/tecnologia-perimetral',
+    path: '/tecnologia-perimetral',
+    getParentRoute: () => ServiciosRoute,
+  } as any)
+const ServiciosVideovigilanciaRoute =
+  ServiciosVideovigilanciaRouteImport.update({
+    id: '/videovigilancia',
+    path: '/videovigilancia',
+    getParentRoute: () => ServiciosRoute,
+  } as any)
+const ServiciosVigilanciaRoute = ServiciosVigilanciaRouteImport.update({
+  id: '/vigilancia',
+  path: '/vigilancia',
+  getParentRoute: () => ServiciosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -128,6 +179,14 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios/custodia': typeof ServiciosCustodiaRoute
+  '/servicios/dashcam-ia': typeof ServiciosDashcamIaRoute
+  '/servicios/gps-rastreo': typeof ServiciosGpsRastreoRoute
+  '/servicios/instalacion-soporte': typeof ServiciosInstalacionSoporteRoute
+  '/servicios/monitoreo': typeof ServiciosMonitoreoRoute
+  '/servicios/tecnologia-perimetral': typeof ServiciosTecnologiaPerimetralRoute
+  '/servicios/videovigilancia': typeof ServiciosVideovigilanciaRoute
+  '/servicios/vigilancia': typeof ServiciosVigilanciaRoute
   '/blog/': typeof BlogIndexRoute
   '/casos-de-exito/': typeof CasosDeExitoIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
@@ -144,6 +203,14 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios/custodia': typeof ServiciosCustodiaRoute
+  '/servicios/dashcam-ia': typeof ServiciosDashcamIaRoute
+  '/servicios/gps-rastreo': typeof ServiciosGpsRastreoRoute
+  '/servicios/instalacion-soporte': typeof ServiciosInstalacionSoporteRoute
+  '/servicios/monitoreo': typeof ServiciosMonitoreoRoute
+  '/servicios/tecnologia-perimetral': typeof ServiciosTecnologiaPerimetralRoute
+  '/servicios/videovigilancia': typeof ServiciosVideovigilanciaRoute
+  '/servicios/vigilancia': typeof ServiciosVigilanciaRoute
   '/blog': typeof BlogIndexRoute
   '/casos-de-exito': typeof CasosDeExitoIndexRoute
   '/servicios': typeof ServiciosIndexRoute
@@ -164,6 +231,14 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios/custodia': typeof ServiciosCustodiaRoute
+  '/servicios/dashcam-ia': typeof ServiciosDashcamIaRoute
+  '/servicios/gps-rastreo': typeof ServiciosGpsRastreoRoute
+  '/servicios/instalacion-soporte': typeof ServiciosInstalacionSoporteRoute
+  '/servicios/monitoreo': typeof ServiciosMonitoreoRoute
+  '/servicios/tecnologia-perimetral': typeof ServiciosTecnologiaPerimetralRoute
+  '/servicios/videovigilancia': typeof ServiciosVideovigilanciaRoute
+  '/servicios/vigilancia': typeof ServiciosVigilanciaRoute
   '/blog/': typeof BlogIndexRoute
   '/casos-de-exito/': typeof CasosDeExitoIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
@@ -185,6 +260,14 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/casos-de-exito/$slug'
     | '/servicios/$slug'
+    | '/servicios/custodia'
+    | '/servicios/dashcam-ia'
+    | '/servicios/gps-rastreo'
+    | '/servicios/instalacion-soporte'
+    | '/servicios/monitoreo'
+    | '/servicios/tecnologia-perimetral'
+    | '/servicios/videovigilancia'
+    | '/servicios/vigilancia'
     | '/blog/'
     | '/casos-de-exito/'
     | '/servicios/'
@@ -201,6 +284,14 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/casos-de-exito/$slug'
     | '/servicios/$slug'
+    | '/servicios/custodia'
+    | '/servicios/dashcam-ia'
+    | '/servicios/gps-rastreo'
+    | '/servicios/instalacion-soporte'
+    | '/servicios/monitoreo'
+    | '/servicios/tecnologia-perimetral'
+    | '/servicios/videovigilancia'
+    | '/servicios/vigilancia'
     | '/blog'
     | '/casos-de-exito'
     | '/servicios'
@@ -220,6 +311,14 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/casos-de-exito/$slug'
     | '/servicios/$slug'
+    | '/servicios/custodia'
+    | '/servicios/dashcam-ia'
+    | '/servicios/gps-rastreo'
+    | '/servicios/instalacion-soporte'
+    | '/servicios/monitoreo'
+    | '/servicios/tecnologia-perimetral'
+    | '/servicios/videovigilancia'
+    | '/servicios/vigilancia'
     | '/blog/'
     | '/casos-de-exito/'
     | '/servicios/'
@@ -360,6 +459,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiciosSlugRouteImport
       parentRoute: typeof ServiciosRoute
     }
+    '/servicios/custodia': {
+      id: '/servicios/custodia'
+      path: '/custodia'
+      fullPath: '/servicios/custodia'
+      preLoaderRoute: typeof ServiciosCustodiaRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/dashcam-ia': {
+      id: '/servicios/dashcam-ia'
+      path: '/dashcam-ia'
+      fullPath: '/servicios/dashcam-ia'
+      preLoaderRoute: typeof ServiciosDashcamIaRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/gps-rastreo': {
+      id: '/servicios/gps-rastreo'
+      path: '/gps-rastreo'
+      fullPath: '/servicios/gps-rastreo'
+      preLoaderRoute: typeof ServiciosGpsRastreoRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/instalacion-soporte': {
+      id: '/servicios/instalacion-soporte'
+      path: '/instalacion-soporte'
+      fullPath: '/servicios/instalacion-soporte'
+      preLoaderRoute: typeof ServiciosInstalacionSoporteRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/monitoreo': {
+      id: '/servicios/monitoreo'
+      path: '/monitoreo'
+      fullPath: '/servicios/monitoreo'
+      preLoaderRoute: typeof ServiciosMonitoreoRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/tecnologia-perimetral': {
+      id: '/servicios/tecnologia-perimetral'
+      path: '/tecnologia-perimetral'
+      fullPath: '/servicios/tecnologia-perimetral'
+      preLoaderRoute: typeof ServiciosTecnologiaPerimetralRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/videovigilancia': {
+      id: '/servicios/videovigilancia'
+      path: '/videovigilancia'
+      fullPath: '/servicios/videovigilancia'
+      preLoaderRoute: typeof ServiciosVideovigilanciaRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
+    '/servicios/vigilancia': {
+      id: '/servicios/vigilancia'
+      path: '/vigilancia'
+      fullPath: '/servicios/vigilancia'
+      preLoaderRoute: typeof ServiciosVigilanciaRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
   }
 }
 
@@ -391,11 +546,27 @@ const CasosDeExitoRouteWithChildren = CasosDeExitoRoute._addFileChildren(
 
 interface ServiciosRouteChildren {
   ServiciosSlugRoute: typeof ServiciosSlugRoute
+  ServiciosCustodiaRoute: typeof ServiciosCustodiaRoute
+  ServiciosDashcamIaRoute: typeof ServiciosDashcamIaRoute
+  ServiciosGpsRastreoRoute: typeof ServiciosGpsRastreoRoute
+  ServiciosInstalacionSoporteRoute: typeof ServiciosInstalacionSoporteRoute
+  ServiciosMonitoreoRoute: typeof ServiciosMonitoreoRoute
+  ServiciosTecnologiaPerimetralRoute: typeof ServiciosTecnologiaPerimetralRoute
+  ServiciosVideovigilanciaRoute: typeof ServiciosVideovigilanciaRoute
+  ServiciosVigilanciaRoute: typeof ServiciosVigilanciaRoute
   ServiciosIndexRoute: typeof ServiciosIndexRoute
 }
 
 const ServiciosRouteChildren: ServiciosRouteChildren = {
   ServiciosSlugRoute: ServiciosSlugRoute,
+  ServiciosCustodiaRoute: ServiciosCustodiaRoute,
+  ServiciosDashcamIaRoute: ServiciosDashcamIaRoute,
+  ServiciosGpsRastreoRoute: ServiciosGpsRastreoRoute,
+  ServiciosInstalacionSoporteRoute: ServiciosInstalacionSoporteRoute,
+  ServiciosMonitoreoRoute: ServiciosMonitoreoRoute,
+  ServiciosTecnologiaPerimetralRoute: ServiciosTecnologiaPerimetralRoute,
+  ServiciosVideovigilanciaRoute: ServiciosVideovigilanciaRoute,
+  ServiciosVigilanciaRoute: ServiciosVigilanciaRoute,
   ServiciosIndexRoute: ServiciosIndexRoute,
 }
 

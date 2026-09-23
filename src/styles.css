@@ -265,8 +265,27 @@
 }
 
 .clients-track {
-  animation: clients-marquee 52s linear infinite;
+  animation: clients-marquee 60s linear infinite;
   will-change: transform;
+}
+
+@media (max-width: 1023px) {
+  .clients-track {
+    animation-duration: 72s;
+  }
+}
+
+@media (max-width: 639px) {
+  .clients-track {
+    animation-duration: 84s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients-track {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 .clients-marquee:hover .clients-track,

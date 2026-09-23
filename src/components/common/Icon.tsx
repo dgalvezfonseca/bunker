@@ -3,6 +3,7 @@ import {
   ChevronDown,
   Mail,
   MapPin,
+  Menu,
   MessageCircle,
   Phone,
   X,
@@ -19,6 +20,7 @@ const icons: Record<string, LucideIcon> = {
   expand_more: ChevronDown,
   location_on: MapPin,
   mail: Mail,
+  menu: Menu,
 };
 
 export function Icon({
