@@ -35,7 +35,7 @@ import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
-import fleetImage from "../../../assets/monitoreo.webp";
+import fleetImage from "../../../assets/dashcamia.webp";
 
 const trustPoints = [
   "Cámaras instaladas en la unidad",
@@ -432,7 +432,7 @@ export function DashcamIaServicePage() {
               />
               <img
                 src={fleetImage}
-                alt="Unidad logística de una flotilla en operación"
+                alt="Dashcam instalada en la cabina de una unidad de carga"
                 className="absolute inset-0 h-full w-full rounded-card object-cover object-center"
                 loading="eager"
                 fetchPriority="high"

@@ -265,8 +265,21 @@
 }
 
 .clients-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
   animation: clients-marquee 60s linear infinite;
   will-change: transform;
+}
+
+.clients-group {
+  width: max-content;
+  flex: none;
+}
+
+.clients-list {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 1023px) {
@@ -283,8 +296,37 @@
 
 @media (prefers-reduced-motion: reduce) {
   .clients-track {
+    width: 100%;
     animation: none !important;
     transform: none !important;
+  }
+
+  .clients-group {
+    width: 100%;
+  }
+
+  .clients-list {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .clients-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .clients-slot {
+    flex: 0 1 10.5rem;
+  }
+}
+
+@media (max-width: 639px) and (prefers-reduced-motion: reduce) {
+  .clients-slot {
+    flex-basis: 50%;
+  }
+
+  .clients-slot .carousel-logo {
+    max-width: calc(100% - 2rem);
+    margin-inline: 1rem;
   }
 }
 

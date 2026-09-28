@@ -21,7 +21,7 @@ import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
-import operationImage from "../../../assets/tecnologia-aplicada.webp";
+import operationImage from "../../../assets/gps-rastreo.webp";
 
 const trustPoints = [
   "Dispositivos instalados en unidades",
@@ -346,7 +346,7 @@ export function GpsRastreoServicePage() {
               />
               <img
                 src={operationImage}
-                alt="Unidad logística con tecnología aplicada durante la operación"
+                alt="Centro de monitoreo con mapa de rastreo de unidades"
                 className="absolute inset-0 h-full w-full rounded-card object-cover object-center"
                 loading="eager"
                 fetchPriority="high"

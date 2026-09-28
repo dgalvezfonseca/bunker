@@ -32,7 +32,7 @@ import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
-import technicalImage from "../../../assets/caseta-bunker.jpeg";
+import technicalImage from "../../../assets/instalacion-soporte.webp";
 
 const trustPoints = [
   "Orden, conectividad y requerimientos del fabricante",
@@ -456,7 +456,7 @@ export function InstalacionSoporteServicePage() {
               />
               <img
                 src={technicalImage}
-                alt="Personal de BÚNKER revisando tecnología junto a una unidad logística"
+                alt="Técnico de BÚNKER instalando cableado en infraestructura de red"
                 className="absolute inset-0 h-full w-full rounded-card object-cover object-center"
                 loading="eager"
                 fetchPriority="high"

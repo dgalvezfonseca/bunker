@@ -1,7 +1,7 @@
 import { Container } from "@/components/common/Container";
 import { Link } from "@tanstack/react-router";
 import { company } from "@/data/company";
-import proteccionFlotilla from "../../../assets/proteccion-flotilla.webp";
+import proteccionFlotilla from "../../../assets/proteccion-flotillas.webp";
 
 export function NationalCoverage() {
   return (

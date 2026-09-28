@@ -60,13 +60,44 @@ export function Header() {
                   Boolean(item.children?.some((child) => pathname === child.href.split("#")[0]));
                 const expanded = openDropdown === item.label;
                 return (
-                  <div key={item.href} className="relative">
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={() => {
+                      if (
+                        item.children &&
+                        window.matchMedia("(hover: hover) and (pointer: fine)").matches
+                      ) {
+                        setOpenDropdown(item.label);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (
+                        item.children &&
+                        window.matchMedia("(hover: hover) and (pointer: fine)").matches
+                      ) {
+                        setOpenDropdown(null);
+                      }
+                    }}
+                    onFocusCapture={() => {
+                      if (item.children) setOpenDropdown(item.label);
+                    }}
+                    onBlurCapture={(event) => {
+                      const nextFocused = event.relatedTarget;
+                      if (
+                        item.children &&
+                        !(nextFocused instanceof Node && event.currentTarget.contains(nextFocused))
+                      ) {
+                        setOpenDropdown(null);
+                      }
+                    }}
+                  >
                     {item.children ? (
                       <button
                         type="button"
                         aria-expanded={expanded}
                         aria-haspopup="menu"
-                        onClick={() => setOpenDropdown(expanded ? null : item.label)}
+                        onClick={() => setOpenDropdown(item.label)}
                         className={cn(
                           "flex min-h-11 items-center gap-1.5 px-3 text-sm font-semibold transition-colors duration-200 hover:text-surface-elevated",
                           active ? "text-surface-elevated" : "text-warm-gray-300",
@@ -100,7 +131,7 @@ export function Header() {
                         className={cn(
                           "absolute top-full left-0 w-72 origin-top-left border border-line/70 bg-surface p-2 text-ink shadow-soft transition-[opacity,transform,visibility] duration-[180ms] ease-out",
                           expanded
-                            ? "visible translate-y-2 opacity-100"
+                            ? "visible translate-y-0 opacity-100"
                             : "invisible translate-y-1 opacity-0",
                         )}
                       >

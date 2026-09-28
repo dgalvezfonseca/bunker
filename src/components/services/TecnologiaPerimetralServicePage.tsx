@@ -35,7 +35,7 @@ import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
-import perimeterImage from "../../../assets/proteccion.webp";
+import perimeterImage from "../../../assets/tecnologia-perimetral.webp";
 
 const trustPoints = [
   "Evaluación del sitio",

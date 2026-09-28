@@ -19,7 +19,7 @@ import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
-import custodioImage from "../../../assets/custodio.webp";
+import custodioImage from "../../../assets/custodia-en-sitio.webp";
 import operationImage from "../../../assets/proteccion-flotilla.webp";
 
 const trustPoints = [
@@ -280,7 +280,7 @@ export function CustodiaServicePage() {
               />
               <img
                 src={custodioImage}
-                alt="Camión de carga acompañado por vehículos en carretera"
+                alt="Personal coordinando la custodia de una unidad de carga"
                 className="absolute inset-0 h-full w-full rounded-card object-cover object-center"
                 loading="eager"
                 fetchPriority="high"

@@ -16,7 +16,7 @@ import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
-import accessControlImage from "../../../assets/nosotros-bunker.png";
+import accessControlImage from "../../../assets/vigilancia-nueva.webp";
 import vigilanciaImage from "../../../assets/vigilancia.webp";
 
 const presenceChecks = [
