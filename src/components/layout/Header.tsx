@@ -46,7 +46,7 @@ export function Header() {
           >
             <BrandWordmark
               className={cn(
-                "transition-[transform,opacity] duration-[220ms] ease-out hover:opacity-90",
+                "h-[4.5rem] transition-[transform,opacity] duration-[220ms] ease-out hover:opacity-90 sm:h-16",
                 scrolled ? "scale-[0.92]" : "scale-100",
               )}
             />

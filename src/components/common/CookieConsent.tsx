@@ -14,7 +14,6 @@ export function CookieConsent() {
   const [preferences, setPreferences] = useState<CookiePreferences | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
-  const [functional, setFunctional] = useState(false);
   const [analytics, setAnalytics] = useState(false);
   const dialogRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -22,7 +21,6 @@ export function CookieConsent() {
 
   const syncPreferences = useCallback((next: CookiePreferences | null) => {
     setPreferences(next);
-    setFunctional(next?.functional ?? false);
     setAnalytics(next?.analytics ?? false);
   }, []);
 
@@ -75,8 +73,8 @@ export function CookieConsent() {
     };
   }, [panelOpen]);
 
-  const choose = (nextFunctional: boolean, nextAnalytics: boolean) => {
-    syncPreferences(saveCookiePreferences(nextFunctional, nextAnalytics));
+  const choose = (nextAnalytics: boolean) => {
+    syncPreferences(saveCookiePreferences(false, nextAnalytics));
     setPanelOpen(false);
   };
 
@@ -95,8 +93,8 @@ export function CookieConsent() {
                 Tu privacidad importa
               </p>
               <p className="mt-2 max-w-3xl text-xs leading-relaxed text-ink-muted sm:text-sm">
-                Solo guardamos tu elección como almacenamiento necesario. El chat y la analítica
-                opcional permanecen desactivados hasta que los autorices.
+                Solo guardamos tu elección como almacenamiento necesario. La analítica opcional
+                permanece desactivada hasta que la autorices.
               </p>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
                 <Link
@@ -114,13 +112,13 @@ export function CookieConsent() {
               </div>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap lg:max-w-md lg:justify-end">
-              <Button variant="ghost" onClick={() => choose(false, false)}>
+              <Button variant="ghost" onClick={() => choose(false)}>
                 Rechazar no necesarias
               </Button>
               <Button variant="outline" onClick={showPreferences}>
                 Configurar
               </Button>
-              <Button onClick={() => choose(true, true)}>Aceptar todas</Button>
+              <Button onClick={() => choose(true)}>Aceptar todas</Button>
             </div>
           </div>
         </section>
@@ -151,7 +149,7 @@ export function CookieConsent() {
             <div className="overflow-y-auto px-5 py-6 sm:px-7">
               <p className="text-sm leading-relaxed text-ink-muted">
                 Puedes decidir qué categorías opcionales permitir. La analítica no está configurada
-                actualmente; el chat solo se carga cuando lo activas.
+                actualmente.
               </p>
               <div className="mt-6 divide-y divide-line border-y border-line">
                 <PreferenceRow
@@ -160,12 +158,6 @@ export function CookieConsent() {
                   checked
                   disabled
                   onChange={() => undefined}
-                />
-                <PreferenceRow
-                  title="Funcionales"
-                  description="Permite activar el chat de tawk.to cuando decides usarlo."
-                  checked={functional}
-                  onChange={() => setFunctional((value) => !value)}
                 />
                 <PreferenceRow
                   title="Analítica"
@@ -179,13 +171,13 @@ export function CookieConsent() {
               </p>
             </div>
             <footer className="flex flex-col-reverse gap-2 border-t border-line bg-surface px-5 py-4 sm:flex-row sm:justify-end sm:px-7">
-              <Button variant="ghost" onClick={() => choose(false, false)}>
+              <Button variant="ghost" onClick={() => choose(false)}>
                 Rechazar no necesarias
               </Button>
-              <Button variant="outline" onClick={() => choose(functional, analytics)}>
+              <Button variant="outline" onClick={() => choose(analytics)}>
                 Guardar preferencias
               </Button>
-              <Button onClick={() => choose(true, true)}>Aceptar todas</Button>
+              <Button onClick={() => choose(true)}>Aceptar todas</Button>
             </footer>
           </section>
         </div>

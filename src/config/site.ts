@@ -8,8 +8,8 @@ export const siteConfig = {
   domain: "PENDIENTE",
   phone: "+52 729 383 1608",
   phoneHref: "tel:+527293831608",
-  whatsapp: "",
-  whatsappDisplay: "",
+  whatsapp: "525544904300",
+  whatsappDisplay: "+52 55 4490 4300",
   email: "contacto@bunkermexico.com.mx",
   address: {
     line1: "Miguel Hidalgo #5, San Francisco Coaxusco",
@@ -20,8 +20,7 @@ export const siteConfig = {
     instagram: "PENDIENTE",
     linkedin: "PENDIENTE",
   },
-  whatsappMessage:
-    "Hola BÚNKER, me gustaría solicitar información sobre sus soluciones tecnológicas.",
+  whatsappMessage: "Hola, me gustaría recibir información sobre los servicios de BÚNKER.",
 } as const;
 
 export const hasWhatsapp = Boolean(siteConfig.whatsapp);

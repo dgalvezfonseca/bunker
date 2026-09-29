@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/common/CookieConsent";
-import { TawkChat } from "../components/common/TawkChat";
 import { siteConfig } from "../config/site";
 import { withBasePath } from "../lib/base-path";
 
@@ -129,7 +128,6 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CookieConsent />
-      <TawkChat />
     </QueryClientProvider>
   );
 }

@@ -74,11 +74,6 @@ function PrivacyNotice() {
         Neubox proporciona servicios de alojamiento para el sitio cuando corresponde. No afirmamos
         una ubicación de servidores mientras no se confirme contractualmente.
       </p>
-      <p>
-        El chat tawk.to es opcional: no se carga al visitar el sitio. Solo se activa cuando decides
-        usarlo y autorizas la categoría funcional; al hacerlo, la conversación y los datos que
-        proporciones se tratarán para atenderla.
-      </p>
 
       <h2>5. Limitación, revocación y derechos ARCO</h2>
       <p>

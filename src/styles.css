@@ -268,7 +268,7 @@
   display: flex;
   width: max-content;
   align-items: center;
-  animation: clients-marquee 60s linear infinite;
+  animation: clients-marquee 40s linear infinite;
   will-change: transform;
 }
 
@@ -282,15 +282,66 @@
   align-items: center;
 }
 
+.carousel-logo {
+  --logo-scale: 1;
+  filter: grayscale(1) contrast(1.2);
+  opacity: 0.82;
+  transform: scale(var(--logo-scale));
+  transition:
+    filter 300ms var(--ease-ui),
+    opacity 300ms var(--ease-ui),
+    transform 300ms var(--ease-ui);
+}
+
+.clients-slot[data-client="vento"] .carousel-logo {
+  --logo-scale: 1.65;
+}
+
+.clients-slot[data-client="changan"] .carousel-logo {
+  --logo-scale: 1.8;
+}
+
+.clients-slot[data-client="mazda"] .carousel-logo {
+  --logo-scale: 1.35;
+  mix-blend-mode: multiply;
+}
+
+.clients-slot[data-client="assistcargo"] .carousel-logo {
+  --logo-scale: 1.35;
+  mix-blend-mode: multiply;
+}
+
+.clients-slot[data-client="asegurimex"] .carousel-logo {
+  --logo-scale: 1.45;
+}
+
+.clients-slot[data-client="aquabalance"] .carousel-logo {
+  --logo-scale: 1.65;
+}
+
+.clients-slot[data-client="disenos-kir"] .carousel-logo {
+  --logo-scale: 1.25;
+}
+
+.clients-slot[data-client="andolavando"] .carousel-logo {
+  --logo-scale: 1.2;
+}
+
+.clients-slot:hover .carousel-logo {
+  filter: grayscale(0) contrast(1);
+  opacity: 1;
+  transform: scale(calc(var(--logo-scale) * 1.04));
+}
+
 @media (max-width: 1023px) {
   .clients-track {
-    animation-duration: 72s;
+    animation-duration: 48s;
   }
 }
 
 @media (max-width: 639px) {
   .clients-track {
-    animation-duration: 84s;
+    animation-duration: 54s;
   }
 }
 
@@ -306,8 +357,11 @@
   }
 
   .clients-list {
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    justify-items: center;
+    align-items: center;
+    gap: 1.5rem 0;
   }
 
   .clients-group[aria-hidden="true"] {
@@ -315,13 +369,13 @@
   }
 
   .clients-slot {
-    flex: 0 1 10.5rem;
+    width: 100%;
   }
 }
 
 @media (max-width: 639px) and (prefers-reduced-motion: reduce) {
-  .clients-slot {
-    flex-basis: 50%;
+  .clients-list {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .clients-slot .carousel-logo {

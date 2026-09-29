@@ -21,13 +21,14 @@ export function Clients() {
                     {clients.map((client) => (
                       <li
                         key={client.id}
-                        className="clients-slot flex h-24 w-[168px] shrink-0 items-center justify-center sm:h-28"
+                        data-client={client.id}
+                        className="clients-slot flex h-28 w-48 shrink-0 items-center justify-center sm:h-32"
                       >
                         {client.logo ? (
                           <img
                             src={client.logo.src}
                             alt={isDuplicate ? "" : client.logo.alt}
-                            className="carousel-logo mx-8 h-10 w-auto max-w-[150px] shrink-0 object-contain grayscale opacity-60 transition-[filter,opacity,transform] duration-300 hover:scale-105 hover:grayscale-0 hover:opacity-100"
+                            className="carousel-logo mx-5 h-14 w-auto max-w-[172px] shrink-0 object-contain"
                             loading={isDuplicate ? "lazy" : "eager"}
                           />
                         ) : (
