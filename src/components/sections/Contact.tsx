@@ -16,8 +16,7 @@ type FormErrors = Partial<Record<FieldName, string>>;
 type SubmissionStatus = "idle" | "sending" | "success" | "error";
 
 const web3FormsEndpoint = "https://api.web3forms.com/submit";
-const web3FormsAccessKey =
-  import.meta.env["VITE_WEB3FORMS_ACCESS_KEY"] ?? "f4fc72cf-f80c-4895-8532-808377d9fb17";
+const web3FormsAccessKey = import.meta.env["VITE_WEB3FORMS_ACCESS_KEY"]?.trim();
 
 const inputClass =
   "min-h-10 w-full rounded-[4px] border border-line bg-surface-elevated px-4 py-2 text-base text-ink outline-none transition-[border-color,background-color,box-shadow] duration-[200ms] ease-out placeholder:text-ink-muted/60 focus:border-primary focus:bg-warm-white focus:shadow-[0_0_0_3px_rgba(0,110,255,0.14)]";
@@ -60,6 +59,12 @@ export function Contact() {
     if (firstError) {
       const field = event.currentTarget.elements.namedItem(firstError);
       if (field instanceof HTMLElement) field.focus();
+      return;
+    }
+
+    if (!web3FormsAccessKey) {
+      setSubmissionStatus("error");
+      setReadyMessage("El formulario está en preparación. Contáctanos por WhatsApp mientras se configura.");
       return;
     }
 

@@ -5,7 +5,7 @@
 export const siteConfig = {
   companyName: "BÚNKER Servicios Integrales de Tecnología S.A. de C.V.",
   shortName: "BÚNKER",
-  domain: "PENDIENTE",
+  domain: "https://bunkermexico.com.mx" as string,
   phone: "+52 729 383 1608",
   phoneHref: "tel:+527293831608",
   whatsapp: "525544904300",
@@ -36,11 +36,11 @@ export const mailtoUrl = (subject = "Solicitud de cotización") =>
 
 /** Se renderiza únicamente cuando exista un dominio real confirmado. */
 export const organizationStructuredData =
-  siteConfig.domain !== "PENDIENTE"
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: siteConfig.companyName,
-        url: siteConfig.domain,
-      }
-    : null;
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.companyName,
+    url: siteConfig.domain,
+  };
+
+export const siteUrl = (path = "/") => new URL(path, siteConfig.domain).toString();
