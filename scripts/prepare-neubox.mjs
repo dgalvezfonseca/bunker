@@ -1,6 +1,6 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { relative, resolve, sep } from "node:path";
-import { spawnSync } from "node:child_process";
+import { writeZip } from "./write-zip.mjs";
 
 const root = resolve("dist/client");
 const release = resolve("release/neubox");
@@ -90,41 +90,9 @@ await rm(release, { recursive: true, force: true });
 await mkdir(resolve("release"), { recursive: true });
 await cp(root, release, { recursive: true });
 await rm(zip, { force: true });
-// ZIP output needs bsdtar (Windows tar.exe). In Git Bash, "tar" resolves to GNU tar,
-// which cannot write ZIP and parses "C:\..." as a remote host, so call it explicitly.
-const tar =
-  process.platform === "win32"
-    ? resolve(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe")
-    : "tar";
-// On Windows, tar stores 0666/0777 (world-writable) and cPanel's unzip applies them as-is.
-// An mtree manifest sets cPanel-friendly permissions explicitly: 0644 files, 0755 dirs.
-const entries = [];
-async function collect(directory) {
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    const full = resolve(directory, entry.name);
-    const path = `./${relative(release, full).split(sep).join("/")}`;
-    if (!/^[\w./@+-]+$/.test(path)) {
-      throw new Error(`Nombre no admitido en el manifiesto ZIP: ${path}`);
-    }
-    if (entry.isDirectory()) {
-      entries.push(`${path} type=dir mode=0755`);
-      await collect(full);
-    } else {
-      entries.push(`${path} type=file mode=0644 contents=${path}`);
-    }
-  }
-}
-await collect(release);
-const manifest = resolve("release/neubox.mtree");
-await writeFile(manifest, `#mtree\n${entries.sort().join("\n")}\n`);
-const archived = spawnSync(tar, ["-a", "-cf", zip, `@${manifest}`], {
-  cwd: release,
-  stdio: "inherit",
-});
-await rm(manifest, { force: true });
-if (archived.status !== 0) throw new Error("No se pudo crear el ZIP de NEUBOX.");
-const listed = spawnSync(tar, ["-tf", zip], { encoding: "utf8" });
-if (listed.status !== 0 || !listed.stdout.includes(".htaccess") || !listed.stdout.includes("index.html")) {
+// Written in Node (no platform tar): root-level names without "./", 0644/0755 permissions.
+const zipped = await writeZip(release, zip);
+if (!zipped.includes(".htaccess") || !zipped.includes("index.html")) {
   throw new Error("El ZIP no contiene index.html y .htaccess en su raíz.");
 }
 console.log(`NEUBOX listo: ${htmlFiles.length} rutas prerenderizadas y ${files.length} archivos estáticos.`);
