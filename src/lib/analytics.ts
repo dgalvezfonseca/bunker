@@ -12,7 +12,7 @@ import {
  * The site only pushes consent state and neutral business events to the dataLayer;
  * no personal data (names, emails, phones, messages) is ever sent.
  */
-export const GTM_ID = "GTM-NFNRRZ4Z";
+export const GTM_ID = "GTM-MC2TGK79";
 
 const CONSENT_MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000;
 
