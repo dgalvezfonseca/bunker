@@ -96,7 +96,32 @@ const tar =
   process.platform === "win32"
     ? resolve(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe")
     : "tar";
-const archived = spawnSync(tar, ["-a", "-cf", zip, "-C", release, "."], { stdio: "inherit" });
+// On Windows, tar stores 0666/0777 (world-writable) and cPanel's unzip applies them as-is.
+// An mtree manifest sets cPanel-friendly permissions explicitly: 0644 files, 0755 dirs.
+const entries = [];
+async function collect(directory) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const full = resolve(directory, entry.name);
+    const path = `./${relative(release, full).split(sep).join("/")}`;
+    if (!/^[\w./@+-]+$/.test(path)) {
+      throw new Error(`Nombre no admitido en el manifiesto ZIP: ${path}`);
+    }
+    if (entry.isDirectory()) {
+      entries.push(`${path} type=dir mode=0755`);
+      await collect(full);
+    } else {
+      entries.push(`${path} type=file mode=0644 contents=${path}`);
+    }
+  }
+}
+await collect(release);
+const manifest = resolve("release/neubox.mtree");
+await writeFile(manifest, `#mtree\n${entries.sort().join("\n")}\n`);
+const archived = spawnSync(tar, ["-a", "-cf", zip, `@${manifest}`], {
+  cwd: release,
+  stdio: "inherit",
+});
+await rm(manifest, { force: true });
 if (archived.status !== 0) throw new Error("No se pudo crear el ZIP de NEUBOX.");
 const listed = spawnSync(tar, ["-tf", zip], { encoding: "utf8" });
 if (listed.status !== 0 || !listed.stdout.includes(".htaccess") || !listed.stdout.includes("index.html")) {
