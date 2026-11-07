@@ -14,7 +14,7 @@ function absoluteUrl(path: string) {
 
 export const Route = createFileRoute("/servicios/vigilancia")({
   head: () => {
-    const url = absoluteUrl("/servicios/vigilancia");
+    const url = absoluteUrl("/servicios/vigilancia/");
     return {
       meta: [
         { title },

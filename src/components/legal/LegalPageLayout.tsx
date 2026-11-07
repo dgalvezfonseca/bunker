@@ -18,7 +18,7 @@ export function LegalPageLayout({
   return (
     <div className="min-h-screen bg-surface">
       <Header />
-      <main className="pt-20">
+      <main id="contenido-principal" className="pt-20">
         <header className="border-b border-line bg-primary-dark py-14 sm:py-20">
           <Container>
             <p className="text-eyebrow text-primary-soft">{eyebrow}</p>

@@ -12,10 +12,19 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/common/CookieConsent";
+import { Toaster } from "../components/ui/sonner";
 import { siteConfig } from "../config/site";
 import { withBasePath } from "../lib/base-path";
+import {
+  consentDefaultsScript,
+  gtmHeadScript,
+  gtmNoScriptHtml,
+  initAnalytics,
+} from "../lib/analytics";
 
 const isGitHubPagesBuild = import.meta.env.MODE === "github-pages";
+// GTM only on the production site; the GitHub Pages staging copy must not send data.
+const analyticsEnabled = import.meta.env.PROD && !isGitHubPagesBuild;
 
 function NotFoundComponent() {
   return (
@@ -99,6 +108,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: withBasePath("/logo.ico"), type: "image/x-icon" },
     ],
+    // Consent defaults must run before the GTM loader; both scripts are ordered.
+    scripts: analyticsEnabled
+      ? [{ children: consentDefaultsScript }, { children: gtmHeadScript }]
+      : [],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -113,6 +126,15 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {analyticsEnabled ? (
+          <noscript dangerouslySetInnerHTML={{ __html: gtmNoScriptHtml }} />
+        ) : null}
+        <a
+          href="#contenido-principal"
+          className="fixed top-3 left-3 z-[60] -translate-y-20 rounded-[2px] bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-transform focus:translate-y-0"
+        >
+          Saltar al contenido
+        </a>
         {children}
         <Scripts />
       </body>
@@ -122,12 +144,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  useEffect(() => (analyticsEnabled ? initAnalytics(router) : undefined), [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CookieConsent />
+      <Toaster closeButton duration={5000} position="top-right" />
     </QueryClientProvider>
   );
 }

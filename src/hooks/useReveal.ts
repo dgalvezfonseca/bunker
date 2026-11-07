@@ -7,6 +7,8 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
 
   useEffect(() => {
     const node = ref.current;
+    // Enables the hidden "before reveal" state in CSS only once JS is running.
+    document.documentElement.dataset["revealReady"] = "true";
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!node || prefersReducedMotion || typeof IntersectionObserver === "undefined") {
       setVisible(true);

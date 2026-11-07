@@ -14,7 +14,7 @@ function absoluteUrl(path: string) {
 
 export const Route = createFileRoute("/servicios/gps-rastreo")({
   head: () => {
-    const url = absoluteUrl("/servicios/gps-rastreo");
+    const url = absoluteUrl("/servicios/gps-rastreo/");
     return {
       meta: [
         { title },

@@ -93,25 +93,37 @@ export function Header() {
                     }}
                   >
                     {item.children ? (
-                      <button
-                        type="button"
-                        aria-expanded={expanded}
-                        aria-haspopup="menu"
-                        onClick={() => setOpenDropdown(item.label)}
-                        className={cn(
-                          "flex min-h-11 items-center gap-1.5 px-3 text-sm font-semibold transition-colors duration-200 hover:text-surface-elevated",
-                          active ? "text-surface-elevated" : "text-warm-gray-300",
-                        )}
-                      >
-                        {item.label}
-                        <Icon
-                          name="expand_more"
+                      <div className="flex items-center">
+                        <a
+                          href={withBasePath(item.href)}
+                          aria-current={active ? "page" : undefined}
                           className={cn(
-                            "text-base transition-transform duration-200",
-                            expanded && "rotate-180",
+                            "flex min-h-11 items-center px-3 text-sm font-semibold transition-colors duration-200 hover:text-surface-elevated",
+                            active ? "text-surface-elevated" : "text-warm-gray-300",
                           )}
-                        />
-                      </button>
+                        >
+                          {item.label}
+                        </a>
+                        <button
+                          type="button"
+                          aria-label={`Abrir menú ${item.label}`}
+                          aria-expanded={expanded}
+                          aria-haspopup="menu"
+                          onClick={() => setOpenDropdown(item.label)}
+                          className={cn(
+                            "flex min-h-11 items-center px-2 pr-3 text-sm font-semibold transition-colors duration-200 hover:text-surface-elevated",
+                            active ? "text-surface-elevated" : "text-warm-gray-300",
+                          )}
+                        >
+                          <Icon
+                            name="expand_more"
+                            className={cn(
+                              "text-base transition-transform duration-200",
+                              expanded && "rotate-180",
+                            )}
+                          />
+                        </button>
+                      </div>
                     ) : (
                       <a
                         href={withBasePath(item.href)}

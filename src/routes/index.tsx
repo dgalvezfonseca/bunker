@@ -71,7 +71,7 @@ function Index() {
         }}
       />
       <Header />
-      <main>
+      <main id="contenido-principal">
         <Hero />
         <Brands />
         <Clients />

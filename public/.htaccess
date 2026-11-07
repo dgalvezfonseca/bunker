@@ -9,13 +9,19 @@ DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
 RewriteEngine On
-# cPanel/Apache normally exposes HTTPS through HTTPS=on. HTTP_X_FORWARDED_PROTO
-# covers the common reverse-proxy case without trusting an arbitrary header value.
+# Apache/cPanel expone HTTPS mediante HTTPS=on; no se depende de headers de proxy opcionales.
+# (Igual a la versión validada en producción NEUBOX el 2026-09-30.)
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^bunkermexico\.com\.mx$ [NC]
-RewriteCond %{HTTP:X-Forwarded-Proto} !https [OR]
-RewriteCond %{HTTP_HOST} !^bunkermexico\.com\.mx$ [NC]
 RewriteRule ^ https://bunkermexico.com.mx%{REQUEST_URI} [R=301,L]
+
+# /ruta/index.html → /ruta/ (evita URL duplicada). El router ya tolera index.html,
+# así que esta regla es solo de SEO y solo actúa si Apache procesa la petición.
+# THE_REQUEST es la línea original del cliente: la subpetición interna de
+# DirectoryIndex no la cambia, por lo que no hay bucle. Los segmentos se limitan a
+# caracteres de URL seguros para impedir destinos como "/\dominio" (open redirect).
+RewriteCond %{THE_REQUEST} \s/+((?:[A-Za-z0-9._~-]+/)*)index\.html?[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
 
 <IfModule mod_autoindex.c>
   Options -Indexes

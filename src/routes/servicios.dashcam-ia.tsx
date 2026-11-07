@@ -14,7 +14,7 @@ function absoluteUrl(path: string) {
 
 export const Route = createFileRoute("/servicios/dashcam-ia")({
   head: () => {
-    const url = absoluteUrl("/servicios/dashcam-ia");
+    const url = absoluteUrl("/servicios/dashcam-ia/");
     return {
       meta: [
         { title },

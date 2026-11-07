@@ -6,7 +6,7 @@ export function SitePage({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-surface">
       <Header />
-      <main>{children}</main>
+      <main id="contenido-principal">{children}</main>
       <Footer />
       <WhatsAppFloating />
     </div>

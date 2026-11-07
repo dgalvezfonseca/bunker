@@ -51,6 +51,7 @@ export function WhatsAppFloating({ className }: { className?: string }) {
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"
       title="Escríbenos por WhatsApp"
+      data-track-placement="floating_button"
       className={cn(
         "fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-raised transition-[background-color,transform] hover:scale-105 hover:bg-[#1da851] sm:right-[max(1.5rem,env(safe-area-inset-right))] sm:bottom-[max(1.5rem,env(safe-area-inset-bottom))]",
         className,

@@ -1,5 +1,7 @@
-import { useState, type FormEvent, type InputHTMLAttributes } from "react";
+import { useRef, useState, type FormEvent, type InputHTMLAttributes } from "react";
 import { Link } from "@tanstack/react-router";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { toast } from "sonner";
 
 import { Container } from "@/components/common/Container";
 import { Icon } from "@/components/common/Icon";
@@ -8,15 +10,18 @@ import { SectionHeading } from "@/components/common/SectionHeading";
 import { WhatsAppLink } from "@/components/common/WhatsAppButton";
 import { hasAddress, hasEmail, hasPhone, hasWhatsapp, mailtoUrl, siteConfig } from "@/config/site";
 import { serviceOptions } from "@/data/services";
+import { pushDataLayer } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { pageContent } from "@/data/page-content";
 
 type FieldName = "name" | "company" | "phone" | "email" | "service" | "message";
 type FormErrors = Partial<Record<FieldName, string>>;
-type SubmissionStatus = "idle" | "sending" | "success" | "error";
+type SubmissionStatus = "idle" | "sending";
 
 const web3FormsEndpoint = "https://api.web3forms.com/submit";
 const web3FormsAccessKey = import.meta.env["VITE_WEB3FORMS_ACCESS_KEY"]?.trim();
+/** Public hCaptcha site key (it is rendered to every visitor; not a secret). */
+const hCaptchaSiteKey = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 
 const inputClass =
   "min-h-10 w-full rounded-[4px] border border-line bg-surface-elevated px-4 py-2 text-base text-ink outline-none transition-[border-color,background-color,box-shadow] duration-[200ms] ease-out placeholder:text-ink-muted/60 focus:border-primary focus:bg-warm-white focus:shadow-[0_0_0_3px_rgba(0,110,255,0.14)]";
@@ -44,15 +49,15 @@ function validate(form: HTMLFormElement): FormErrors {
 export function Contact() {
   const content = pageContent.contact;
   const [errors, setErrors] = useState<FormErrors>({});
-  const [readyMessage, setReadyMessage] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
+  const [captchaToken, setCaptchaToken] = useState("");
+  const captchaRef = useRef<HCaptcha>(null);
   const hasDirectContact = hasPhone || hasEmail || hasAddress || hasWhatsapp;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate(event.currentTarget);
     setErrors(nextErrors);
-    setReadyMessage("");
     setSubmissionStatus("idle");
 
     const firstError = Object.keys(nextErrors)[0] as FieldName | undefined;
@@ -63,16 +68,24 @@ export function Contact() {
     }
 
     if (!web3FormsAccessKey) {
-      setSubmissionStatus("error");
-      setReadyMessage("El formulario está en preparación. Contáctanos por WhatsApp mientras se configura.");
+      toast.error("Formulario en preparación", {
+        description: "Contáctanos por WhatsApp mientras se configura.",
+      });
+      return;
+    }
+
+    if (!captchaToken) {
+      toast.error("Completa la verificación de seguridad", {
+        description: "Completa la verificación de seguridad antes de enviar tu solicitud.",
+      });
       return;
     }
 
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append("access_key", web3FormsAccessKey);
+    formData.set("h-captcha-response", captchaToken);
     setSubmissionStatus("sending");
-    setReadyMessage("Enviando tu solicitud…");
 
     try {
       const response = await fetch(web3FormsEndpoint, { method: "POST", body: formData });
@@ -82,12 +95,28 @@ export function Contact() {
         throw new Error(data.message ?? "No fue posible enviar la solicitud.");
       }
 
+      // Only after Web3Forms confirms. No personal data: just the form and the chosen service.
+      const service = formData.get("service");
+      pushDataLayer({
+        event: "generate_lead",
+        form_name: "contacto",
+        lead_source: "web3forms",
+        service_interest: typeof service === "string" && service ? service : "no_especificado",
+        page_path: window.location.pathname,
+      });
       form.reset();
-      setSubmissionStatus("success");
-      setReadyMessage("Recibimos tu solicitud. Nos pondremos en contacto contigo.");
+      toast.success("Solicitud enviada", {
+        description: "Recibimos tu solicitud. Nos pondremos en contacto contigo.",
+      });
     } catch {
-      setSubmissionStatus("error");
-      setReadyMessage("No fue posible enviar tu solicitud. Inténtalo nuevamente.");
+      toast.error("No pudimos enviar tu solicitud", {
+        description: "Inténtalo nuevamente o contáctanos por WhatsApp.",
+      });
+    } finally {
+      // An hCaptcha token is single-use: clear it after every attempt.
+      setSubmissionStatus("idle");
+      setCaptchaToken("");
+      captchaRef.current?.resetCaptcha();
     }
   };
 
@@ -238,6 +267,20 @@ export function Contact() {
                     className={cn(inputClass, "resize-y", errors.message && "border-red-600")}
                   />
                 </div>
+
+                <div className="sm:col-span-2">
+                  <p className="mb-1.5 text-[0.8125rem] font-semibold text-ink">
+                    Verificación de seguridad <span aria-hidden="true">*</span>
+                  </p>
+                  <HCaptcha
+                    ref={captchaRef}
+                    sitekey={hCaptchaSiteKey}
+                    reCaptchaCompat={false}
+                    onVerify={setCaptchaToken}
+                    onExpire={() => setCaptchaToken("")}
+                    onError={() => setCaptchaToken("")}
+                  />
+                </div>
               </div>
 
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -271,19 +314,6 @@ export function Contact() {
                   <p className="text-xs leading-4 text-ink-muted">* Campos obligatorios</p>
                 </div>
               </div>
-
-              {readyMessage ? (
-                <p
-                  role="status"
-                  aria-live="polite"
-                  className={cn(
-                    "field-message mt-5 border-l-2 bg-surface-elevated px-4 py-3 text-sm text-ink",
-                    submissionStatus === "error" ? "border-red-600" : "border-primary",
-                  )}
-                >
-                  {readyMessage}
-                </p>
-              ) : null}
             </form>
           </Reveal>
         </div>

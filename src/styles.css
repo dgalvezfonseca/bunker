@@ -176,10 +176,9 @@
   border-top: 1px solid rgb(0 114 206 / 0.28);
 }
 
-/* Reveal on scroll */
+/* Reveal on scroll — progressive enhancement: content stays visible until JS runs
+   useReveal(), which sets html[data-reveal-ready="true"]. Without JS nothing is hidden. */
 @utility reveal {
-  opacity: 0;
-  transform: translateY(14px);
   transition:
     opacity var(--motion-reveal) var(--ease-brand),
     transform var(--motion-reveal) var(--ease-brand);
@@ -190,15 +189,20 @@
   transform: none;
 }
 
-@utility reveal-left {
+html[data-reveal-ready="true"] .reveal:not(.reveal-visible) {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+html[data-reveal-ready="true"] .reveal.reveal-left:not(.reveal-visible) {
   transform: translateX(-12px);
 }
 
-@utility reveal-right {
+html[data-reveal-ready="true"] .reveal.reveal-right:not(.reveal-visible) {
   transform: translateX(12px);
 }
 
-@utility reveal-scale {
+html[data-reveal-ready="true"] .reveal.reveal-scale:not(.reveal-visible) {
   transform: scale(0.985);
 }
 

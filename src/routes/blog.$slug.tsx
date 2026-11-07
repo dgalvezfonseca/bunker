@@ -26,7 +26,7 @@ function absoluteUrl(path: string) {
 }
 
 function GuideStructuredData({ post }: { post: (typeof posts)[number] }) {
-  const url = absoluteUrl(`/blog/${post.slug}`);
+  const url = absoluteUrl(`/blog/${post.slug}/`);
   if (!url) return null;
   const image = post.cover ? absoluteUrl(post.cover.src) : null;
   const graph = [
@@ -44,7 +44,7 @@ function GuideStructuredData({ post }: { post: (typeof posts)[number] }) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
-        { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/blog") },
+        { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/blog/") },
         { "@type": "ListItem", position: 3, name: post.title, item: url },
       ],
     },
@@ -61,7 +61,7 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
     const post = posts.find((item) => item.slug === params.slug);
     if (!post) return {};
-    const url = absoluteUrl(`/blog/${post.slug}`);
+    const url = absoluteUrl(`/blog/${post.slug}/`);
     const image = post.cover ? absoluteUrl(post.cover.src) : null;
     return {
       meta: [

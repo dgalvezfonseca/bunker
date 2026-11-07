@@ -16,10 +16,13 @@ async function walk(directory) {
   }
 }
 
+// The static host serves each page as a directory (<route>/index.html) and answers
+// "/route" with a 301 to "/route/", so canonical, og:url and the sitemap use the
+// trailing-slash form to point at the final URL instead of a redirect.
 function urlFor(file) {
   const relativeFile = relative(root, file).split(sep).join("/");
   const route = relativeFile === "index.html" ? "" : relativeFile.replace(/\/index\.html$/, "");
-  return `${origin}${route ? `/${route}` : "/"}`;
+  return `${origin}${route ? `/${route}/` : "/"}`;
 }
 
 function attribute(html, expression) {
@@ -63,6 +66,13 @@ for (const file of htmlFiles) {
     );
   }
   if (meta.length) html = html.replace("</head>", `${meta.join("\n")}</head>`);
+  const canonical = attribute(html, /<link\s+rel="canonical"\s+href="([^"]*)"/i);
+  const ogUrl = attribute(html, /<meta\s+property="og:url"\s+content="([^"]*)"/i);
+  if (canonical !== url || ogUrl !== url) {
+    throw new Error(
+      `URL canónica inconsistente en ${relative(root, file)}: canonical=${canonical} og:url=${ogUrl} esperado=${url}`,
+    );
+  }
   await writeFile(file, html);
 }
 
@@ -80,9 +90,15 @@ await rm(release, { recursive: true, force: true });
 await mkdir(resolve("release"), { recursive: true });
 await cp(root, release, { recursive: true });
 await rm(zip, { force: true });
-const archived = spawnSync("tar", ["-a", "-cf", zip, "-C", release, "."], { stdio: "inherit" });
+// ZIP output needs bsdtar (Windows tar.exe). In Git Bash, "tar" resolves to GNU tar,
+// which cannot write ZIP and parses "C:\..." as a remote host, so call it explicitly.
+const tar =
+  process.platform === "win32"
+    ? resolve(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe")
+    : "tar";
+const archived = spawnSync(tar, ["-a", "-cf", zip, "-C", release, "."], { stdio: "inherit" });
 if (archived.status !== 0) throw new Error("No se pudo crear el ZIP de NEUBOX.");
-const listed = spawnSync("tar", ["-tf", zip], { encoding: "utf8" });
+const listed = spawnSync(tar, ["-tf", zip], { encoding: "utf8" });
 if (listed.status !== 0 || !listed.stdout.includes(".htaccess") || !listed.stdout.includes("index.html")) {
   throw new Error("El ZIP no contiene index.html y .htaccess en su raíz.");
 }
